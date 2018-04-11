@@ -1,0 +1,238 @@
+<resources>
+
+    <string name="app_name">Demo</string>
+
+    <!--screen header title-->
+    <string name="header.home">Đơn hàng hôm nay</string>
+    <string name="header.login">Đăng nhập</string>
+    <string name="header.order.detail">Order detail</string>
+    <string name="header.bill.history">Lịch sử giao hàng</string>
+    <string name="header.bill.current">Current bill</string>
+    <string name="header.direction.map">Lộ trình</string>
+    <string name="header.direction.detail">Lộ trình chi tiết</string>
+    <string name="header.password.change">Đổi mật khẩu</string>
+    <string name="header.password.forgot">Quên mật khẩu</string>
+    <string name="header.password.forgot.change">Set new password</string>
+    <string name="header.password.forgot.code">Enter code</string>
+    <string name="header.enter.truck.id">Cập nhật mã xe</string>
+
+    <!--dialog text-->
+    <string name="dialog.logout.title">Đăng xuất</string>
+    <string name="dialog.logout.message">Bạn có chắc chắn muốn đăng xuất?</string>
+    <string name="dialog.logout.button.yes">Đăng xuất</string>
+    <string name="dialog.logout.button.no">Hủy</string>
+    <string name="dialog.gps.title">Turn on GPS</string>
+    <string name="dialog.gps.message">Turn on GPS to use this. Please!</string>
+    <string name="dialog.gps.button.yes">Turn on</string>
+    <string name="dialog.gps.button.no">Cancel</string>
+    <string name="dialog.network.title">No internet connection</string>
+    <string name="dialog.network.message">Please turn On Internet connection and try again(Wifi/3G/4G)!</string>
+    <string name="dialog.network.button.yes">Try again</string>
+    <string name="dialog.network.button.no" />
+    <string name="dialog.password.change.title">Notification</string>
+    <string name="dialog.password.change.message">Change password success!</string>
+    <string name="dialog.password.change.button.yes">OK</string>
+    <string name="dialog.password.change.button.no" />
+    <string name="dialog.home.bill.confirm.title">Giao hàng</string>
+    <string name="dialog.home.bill.confirm.message">Xác nhận đã giao hàng thành công. Chắc chưa?</string>
+    <string name="dialog.home.bill.confirm.button.yes">Xác nhận</string>
+    <string name="dialog.home.bill.confirm.button.no">Hủy</string>
+    <string name="dialog.notification.yes">Đồng ý</string>
+    <string name="dialog.notification.title">Thông báo</string>
+    <string name="dialog.notification.no">Để sau</string>
+    <string name="dialog.delivery.confirmation.title">delivery confirmation</string>
+    <string name="dialog.refueling.information.title">Refueling information</string>
+    <string name="dialog.delivery.confirmation.diesel">Diesel</string>
+    <string name="dialog.delivery.confirmation.mazut">Mazut</string>
+    <string name="dialog.delivery.confirmation.petroleum">Gasoline</string>
+    <string name="dialog.refueling.information.capacity.customer">Customer</string>
+    <string name="dialog.refueling.information.capacity.truck">Truck</string>
+    <string name="dialog.enter.truck.title">Truck id confirmation</string>
+
+    <!--button text-->
+    <string name="button.login">Đăng nhập</string>
+    <string name="button.change.password">Đổi</string>
+    <string name="button.forgot.request">Gửi</string>
+    <string name="button.home.bill.current">Đơn hàng</string>
+    <string name="button.home.direction.map">Lộ trình giao hàng</string>
+    <string name="button.home.bill.history">Lịch sử giao hàng</string>
+    <string name="button.home.password.change">Đổi mật khẩu</string>
+    <string name="button.home.logout">Đăng xuất</string>
+    <string name="button.login.forgot">Quên mật khẩu?</string>
+    <string name="button.direction.map.detail">Lộ trình</string>
+    <string name="button.direction.map.drive">Khởi hành</string>
+    <string name="button.home.drive">Xem bản đồ</string>
+    <string name="button.deliver">Giao</string>
+    <string name="button.forgot.change">Đổi</string>
+    <string name="button.forgot.send.code">Gửi</string>
+
+    <!--change profile-->
+    <string name="title.navigation.profile">Thông tin cá nhân</string>
+    <string name="button.save.profile">Lưu</string>
+    <string name="text.familyname.profile">Family name</string>
+    <string name="text.givenname.profile">Given name</string>
+    <string name="text.email.profile">Email</string>
+    <string name="text.phone.profile">Phone number</string>
+    <string name="text.company.profile">Company</string>
+    <string name="text.address.profile">Address</string>
+
+    <string name="edit.familyname.profile">Entering family name</string>
+    <string name="edit.givename.profile">Entering given name</string>
+    <string name="edit.email.profile">Entering email name</string>
+    <string name="edit.phone.profile">Entering phone name</string>
+    <string name="edit.company.profile">Entering company name</string>
+    <string name="edit.address.profile">Entering address name</string>
+
+    <string name="message.info.get.error">Failed.Please try again!</string>
+
+    <string name="message.info.change.error">Failed.Please try again!</string>
+    <string name="message_info_change_empty_family_name">Please enter your new family name</string>
+    <string name="message_info_change_empty_given_name">Please enter your new given name</string>
+    <string name="message_info_change_empty_email">Please enter your new email</string>
+    <string name="message_info_change_empty_phone">Please enter your new phone number</string>
+    <string name="message_info_change_empty_company">Please enter your new company</string>
+    <string name="message_info_change_empty_address">Please enter your new address</string>
+
+    <!--edit text hint-->
+    <string name="edit.login.hint.password">Mật khẩu</string>
+    <string name="edit.login.hint.userName">Tên đăng nhập</string>
+    <string name="edit.change.hint.password.current">Currrent password</string>
+    <string name="edit.change.hint.password.new">New password</string>
+    <string name="edit.change.hint.passord.confirm">Confirm password</string>
+    <string name="edit.forgot.hint.email">Email</string>
+    <string name="edit.forgot.hint.password">New password</string>
+    <string name="edit.forgot.hint.code">Your code</string>
+
+    <!--text-->
+    <string name="text.direction.map.location.next">Điểm tiếp theo</string>
+    <string name="text.password.forgot.guide">Enter your email, we will send you a secret code to change your password.If you already have the code, you can</string>
+    <string name="text.password.forgot.guide.press">press this to enter the code</string>
+    <string name="text.password.forgot.change.guide">Set new password, you will login with new password.</string>
+    <string name="text.bill.status.delivered">Đã giao</string>
+    <string name="text.password.forgot.code.guide">Enter the code we sent you in your email here.</string>
+    <string name="text.bill.status.order">Chưa giao</string>
+    <string name="text.bill.status.received">Đã giao</string>
+    <string name="text.bill.status.canceled">Bị hủy</string>
+    <string name="text.bill.status.shipping">Đang giao</string>
+    <string name="text.bill.gasoline.capacity">lít</string>
+    <string name="text.bill.empty">Không rõ</string>
+    <string name="text.map.current.location.title">Bạn</string>
+    <string name="text.map.current.location.description">Bạn đang ở đây!</string>
+    <string name="text.home.empty.order">Không có đơn hàng.</string>
+
+
+    <!--message-->
+    <string name="message.login.empty.user.name">Please enter user name</string>
+    <string name="message.login.empty.password">Please enter password</string>
+    <string name="message.login.error">Log in failed. Please try again!</string>
+    <string name="message.password.change.empty.current">Please enter your current password!</string>
+    <string name="message.password.change.empty.confirm">Please confirm your new password!</string>
+    <string name="message.password.change.empty.new">Please enter your new password!</string>
+    <string name="message.password.change.duplicate">Please enter a different password than the current one!</string>
+    <string name="message.password.change.not.match">New password and confirm-password not match!</string>
+    <string name="message.password.change.error">Failed.Please try again!</string>
+    <string name="message.password.forgot.email.empty">Please enter your email.</string>
+    <string name="message.password.forgot.email.wrong">This is not an email.</string>
+    <string name="message.password.forgot.request.error">Request failed. Please try again!</string>
+    <string name="message.password.forgot.code.empty">Please enter your code.</string>
+    <string name="message.password.forgot.code.error">Send failed. Please try again!</string>
+    <string name="message.password.forgot.change.empty">Please enter your new password.</string>
+    <string name="message.password.forgot.change.error">Change password failed. Please try again!</string>
+    <string name="message.gasoline.capacity.delivery.empty">Chưa nhập số xăng đã giao.</string>
+    <string name="message.gasoline.quantity.refueling.empty">Please enter quantity.</string>
+    <string name="message.gasoline.quantity.refueling.for.customer.empty">Please enter quantity for customer.</string>
+    <string name="message.gasoline.quantity.refueling.for.truck.empty">Please enter quantity for truck.</string>
+    <string name="message.gasoline.enter.quantity.refueling">Please enter quantity for customer and truck.</string>
+    <string name="message.gasoline.quantity.delivery.empty">Please enter quantity!</string>
+    <string name="message.error.connection">Có lỗi xảy ra khi kết nối đến máy chủ. Vui lòng thử lại!</string>
+    <string name="message.error.internet">Can\'t connect to internet!</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="button.bill.history.search">Tìm kiếm</string>
+    <string name="edit.bill.history.search.hint.query">Nhập mã số, địa chỉ,...</string>
+    <string name="edit.bill.history.search.hint.time.from">Từ</string>
+    <string name="edit.bill.history.search.hint.time.to">Đến</string>
+    <string name="button.home.get.bills">Lấy đơn</string>
+    <string name="button.direction.map.error">Lấy lộ trình</string>
+    <string name="todo">TODO</string>
+    <string name="edit.quantity.confirm.dialog">Nhập số lượng xăng..</string>
+    <string name="text.bill.history.search.title.key">Key word</string>
+    <string name="text.bill.history.search.title.time">Time</string>
+    <string name="text.bill.history.search.title.capacity">Gasoline capacity</string>
+    <string name="text.app.slogan">transporting app</string>
+    <string name="text.app.big.title">GASOLINE</string>
+    <string name="menu.main.item.account">Tài khoản</string>
+    <string name="menu.main.item.transport">Vận chuyển</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dialog.delivery.confirmation.liter">lít</string>
+    <string name="header.edit.profile">Thông tin cá nhân</string>
+
+    <!--Technician-->
+    <string name="title.list.tank.navigation.bar">Danh sách sensor</string>
+    <string name="title.add.sensor.navigation.bar">Thêm mới sensor</string>
+    <string name="title_update_sensor_navigation_bar">Chỉnh sửa sensor</string>
+    <string name="menu.main.enter.info.tank">Sensor</string>
+    <string name="menu.main.enter.info.gateway">Gateway</string>
+    <string name="enter.width.tank">Độ rộng (w)</string>
+    <string name="enter.length.tank">Chiều dài (l)</string>
+    <string name="enter.height.tank">Chiều cao (h)</string>
+    <string name="enter.bottom.height.tank">Chiều cao góc đáy (b)</string>
+    <string name="enter.pressure.tank">Hệ số áp suất (a)</string>
+    <string name="edit.width.tank">Nhập w</string>
+    <string name="edit.length.tank">Nhập l</string>
+    <string name="edit.height.tank">Nhập h</string>
+    <string name="edit.bottom.height.tank">Nhập b</string>
+    <string name="edit.pressure.tank">Nhập a</string>
+    <string name="lb.name.sensor">Tên sensor</string>
+    <string name="lb.name.tank">Tên xe</string>
+    <string name="lb.id.sensor">Mã sensor</string>
+    <string name="lb.address.tank">Địa chỉ</string>
+    <string name="lb.status.tank">Trạng thái</string>
+    <string name="lb.info.tank">Thông tin bình chứa</string>
+    <string name="lb.id.truck">Chọn xe tải:</string>
+
+
+    <string name="menu.main.item.installation">Lắp đặt</string>
+    <string name="header.enter.infor.delivery">Nhập thông tin giao hàng</string>
+    <string name="lb.product.type">Loại dầu</string>
+    <string name="lb.installation.date">Ngày lắp đặt</string>
+    <string name="lb.owner.id">Owner id</string>
+    <string name="lb.customer.id">Customer id</string>
+    <string name="unit.order.title"> Total orders:</string>
+    <string name="unit.mazut.title"> Mazut:</string>
+    <string name="unit.diesel.title"> Diesel:</string>
+    <string name="unit.gasoline.title"> Gasoline:</string>
+    <string name="unit.lit">l</string>
+    <string name="lb.info.sensor">Thông tin sensor</string>
+    <string name="hint.edit.search">Tìm kiếm</string>
+    <string name="button.confirm.input.delivery.information">Xác nhận thông tin</string>
+    <string name="unit.metter">(Mét)</string>
+    <string name="unit.litter">(Lít)</string>
+    <string name="lb.dev.addr.tank">Dev addr</string>
+    <string name="dialog_delete_sensor_title">Xoá sensor</string>
+    <string name="dialog_delete_sensor_message">Bạn có chắc chắn muốn xoá sensor</string>
+    <string name="dialog_delete_button_yes">Xoá</string>
+    <string name="dialog_delete_button_no">Huỷ</string>
+    <string name="button.add.sensor">Thêm</string>
+    <string name="lb.info.device">Thông tin xe</string>
+    <string name="lb.product.capacity">Dung lượng</string>
+
+    <string-array name="status">
+        <item>Chưa lắp đặt</item>
+        <item>Hỏng</item>
+        <item>Đang sửa chữa</item>
+        <item>Đang hoạt động</item>
+    </string-array>
+
+    <string-array name="product_type">
+        <item>Diesel</item>
+        <item>Mazut</item>
+        <item>Gasoline</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+
+</resources>
