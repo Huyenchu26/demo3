@@ -110,9 +110,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openDialogRfid(List<String> rfid) {
         List<String> newRFID = new ArrayList<>();
-        for (int i = 0; i < rfid.size(); i++) {
-            newRFID.add(String.valueOf(Long.parseLong(rfid.get(i), 16)));
-        }
+        if (rfid != null)
+            for (int i = 0; i < rfid.size(); i++) {
+                newRFID.add(String.valueOf(Long.parseLong(rfid.get(i), 16)));
+            }
 
         if (rfidDialog != null && rfidDialog.isShowing()) return;
         rfidDialog = new RFIDDialog(this, newRFID);
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             vehicle.setCPUtime(imei.get(i).split(",")[18]);
             try {
                 vehicle.setPositionStatus(imei.get(i).split(";")[3].split(",")[1]);
-                vehicle.setRfid(GetRFID.xuLy(imei.get(i).split(",")[14]));
+                vehicle.setRfid(GetRFID.getRFID(imei.get(i).split(",")[14]));
             } catch (Exception e) {
                 Log.e("exception", e.toString());
             }
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         return false;
     }

@@ -65,12 +65,23 @@ public class GetRFID {
                     end = size - 1;
                 }
 
-                rfid.add(str.substring(end-7, end-1));
+                rfid.add(str.substring(end - 7, end - 1));
                 i = end;
             }
 
         }
         Log.e("HuyenChu", rfid.toString());
+        return rfid;
+    }
+
+    public static List<String> getRFID(String string) {
+        List<String> rfid = null;
+        for (int i = 0; i < string.length(); i++) {
+            String str = string.substring(i, i + 8);
+            if (NumberUtil.checkRFID(string)){
+                rfid.add(String.valueOf(NumberUtil.hexToDecimal(string.substring(0, 6))));
+            }
+        }
         return rfid;
     }
 
