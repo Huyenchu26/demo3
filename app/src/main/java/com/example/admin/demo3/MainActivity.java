@@ -1,11 +1,10 @@
 package com.example.admin.demo3;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,26 +14,21 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.admin.demo3.adapter.VehicleAdapter;
 import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.dialog.RFIDDialog;
 import com.example.admin.demo3.model.Vehicle;
 import com.example.admin.demo3.util.GetRFID;
-import com.example.admin.demo3.util.NumberUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.admin.demo3.util.KeyboardUtils.hideSoftKeyboard;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -181,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 vehicle.setPositionStatus(imei.get(i).split(";")[3].split(",")[1]);
                 vehicle.setRfid(GetRFID.getRFID(imei.get(i).split(",")[14]));
+                Log.e("string: ", imei.get(i).split(",")[14]);
             } catch (Exception e) {
                 Log.e("exception", e.toString());
             }

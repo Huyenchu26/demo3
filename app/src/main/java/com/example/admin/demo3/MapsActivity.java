@@ -1,13 +1,14 @@
 package com.example.admin.demo3;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.demo3.customview.OnClickListener;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -68,6 +69,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng location = new LatLng(latitude, longitude);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
+        mMap.animateCamera(zoom);
         mMap.addMarker(new MarkerOptions().position(location).title("This imei in here"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         Log.e("MapsActivity", "longitude: " + longitude + " - latitude: " + latitude);
