@@ -93,4 +93,11 @@
         <item name="android:textColor">@color/colorTextPrimary</item>
     </style>
 
+    <style name="textTraffic">
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 </resources>
