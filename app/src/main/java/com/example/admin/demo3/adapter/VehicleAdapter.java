@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.admin.demo3.R;
 import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.model.Vehicle;
-import com.example.admin.demo3.model.VehicleChild;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,7 +195,8 @@ public class VehicleAdapter extends RecyclerView.Adapter {
             int egine = vehicle.getEngine();
             if (egine == 1)
                 imgRunning.setImageResource(R.mipmap.icon_running);
-            else imgRunning.setImageResource(R.mipmap.icon_stop);
+            else
+                imgRunning.setImageResource(R.mipmap.icon_stop);
             imgRunning.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {

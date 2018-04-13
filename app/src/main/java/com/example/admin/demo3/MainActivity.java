@@ -129,13 +129,14 @@ public class MainActivity extends AppCompatActivity {
     List<String> data = new ArrayList<>();
 
     private void readFromFile() {
-        String mLine = null;
+
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
                     new InputStreamReader(getAssets().open("480000069229732.txt"), "UTF-8"));
-            while ((mLine = reader.readLine()) != null) {
-                data.add(reader.readLine());
+            String mLine = reader.readLine();
+            while (mLine != null) {
+                data.add(mLine);
             }
         } catch (IOException e) {
             Log.e("Huyenchu", "readFromFile: null");
@@ -173,9 +174,9 @@ public class MainActivity extends AppCompatActivity {
             vehicle.setFirmware(imei.get(i).split(",")[17]);
             vehicle.setCPUtime(imei.get(i).split(",")[18]);
             try {
+                Log.e("string: ", imei.get(i).split(",")[14]);
                 vehicle.setPositionStatus(imei.get(i).split(";")[3].split(",")[1]);
                 vehicle.setRfid(GetRFID.getRFID(imei.get(i).split(",")[14]));
-                Log.e("string: ", imei.get(i).split(",")[14]);
             } catch (Exception e) {
                 Log.e("exception", e.toString());
             }
