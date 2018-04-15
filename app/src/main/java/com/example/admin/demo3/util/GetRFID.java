@@ -78,10 +78,11 @@ public class GetRFID {
         List<String> rfid = null;
         for (int i = 0; i < string.length(); i++) {
             String str = string.substring(i, i + 8);
-            if (NumberUtil.checkRFID(string)){
-                rfid.add(String.valueOf(NumberUtil.hexToDecimal(string.substring(0, 6))));
+            if (NumberUtil.checkRFID(str)){
+                rfid.add(String.valueOf(NumberUtil.hexToDecimal(str.substring(0, 6))));
             }
         }
+        LogUtil.e(rfid.toString());
         return rfid;
     }
 

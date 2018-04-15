@@ -20,8 +20,11 @@ import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.dialog.RFIDDialog;
 import com.example.admin.demo3.model.Vehicle;
 import com.example.admin.demo3.util.GetRFID;
+import com.example.admin.demo3.util.LogUtil;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -129,27 +132,18 @@ public class MainActivity extends AppCompatActivity {
     List<String> data = new ArrayList<>();
 
     private void readFromFile() {
-
-        BufferedReader reader = null;
         try {
-            reader = new BufferedReader(
-                    new InputStreamReader(getAssets().open("480000069229732.txt"), "UTF-8"));
-            String mLine = reader.readLine();
-            while (mLine != null) {
-                data.add(mLine);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("260699.txt")));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                data.add(line);
+                LogUtil.e(line);
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            Log.e("Huyenchu", "readFromFile: null");
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    //log the exception
-                }
-            }
+            e.printStackTrace();
         }
-
     }
 
     List<Vehicle> vehicles = new ArrayList<>();
@@ -159,35 +153,42 @@ public class MainActivity extends AppCompatActivity {
         List<String> imei = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
             if (i % 2 == 0)
-                imei.add(data.get(i));
-            else time.add(data.get(i));
+                time.add(data.get(i));
+            else imei.add(data.get(i));
         }
 
 
         Vehicle vehicle = new Vehicle();
+        LogUtil.e("Time: " + time.size() + " - Imei: " + imei.size());
         for (int i = 0; i < imei.size(); i++) {
-            vehicle.setImei(imei.get(i).split(",")[0]);
-            vehicle.setTime(imei.get(i).split(",")[1]);
-            vehicle.setLongitude(Double.parseDouble(imei.get(i).split(",")[2]));
-            vehicle.setLatitude(Double.parseDouble(imei.get(i).split(",")[3]));
-            vehicle.setEngine(Integer.parseInt(imei.get(i).split(",")[10]));
-            vehicle.setFirmware(imei.get(i).split(",")[17]);
-            vehicle.setCPUtime(imei.get(i).split(",")[18]);
-            try {
-                Log.e("string: ", imei.get(i).split(",")[14]);
-                vehicle.setPositionStatus(imei.get(i).split(";")[3].split(",")[1]);
-                vehicle.setRfid(GetRFID.getRFID(imei.get(i).split(",")[14]));
-            } catch (Exception e) {
-                Log.e("exception", e.toString());
-            }
-            vehicles.add(vehicle);
+            String[] splitStr = imei.get(i).split(",");
+//            LogUtil.e("HuyenChu: " + imei.toString());
+            setValue(vehicle, splitStr);
         }
+    }
+
+    private void setValue(Vehicle vehicle, String[] splitStr) {
+        try {
+            vehicle.setImei(splitStr[0]);
+            vehicle.setTime(splitStr[1]);
+            vehicle.setLongitude(Double.parseDouble(splitStr[2]));
+            vehicle.setLatitude(Double.parseDouble(splitStr[3]));
+            vehicle.setEngine(Integer.parseInt(splitStr[10]));
+            vehicle.setFirmware(splitStr[17]);
+            vehicle.setCPUtime(splitStr[18]);
+            vehicle.setPositionStatus(splitStr[16]);
+            vehicle.setRfid(GetRFID.getRFID(splitStr[14]));
+        } catch (Exception e) {
+//            LogUtil.e(e.toString());
+        }
+        vehicles.add(vehicle);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        return false;
+        return true;
     }
+//danh sách liên kết đơn, viết ct c/c++ tối ưu tìm phần tử thứ n từ dưới lên (gợi ý: 1 vòng for)
 }
