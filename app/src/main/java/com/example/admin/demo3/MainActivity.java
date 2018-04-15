@@ -157,12 +157,9 @@ public class MainActivity extends AppCompatActivity {
             else imei.add(data.get(i));
         }
 
-
-        Vehicle vehicle = new Vehicle();
-        LogUtil.e("Time: " + time.size() + " - Imei: " + imei.size());
         for (int i = 0; i < imei.size(); i++) {
+            Vehicle vehicle = new Vehicle();
             String[] splitStr = imei.get(i).split(",");
-//            LogUtil.e("HuyenChu: " + imei.toString());
             setValue(vehicle, splitStr);
         }
     }
@@ -179,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
             vehicle.setPositionStatus(splitStr[16]);
             vehicle.setRfid(GetRFID.getRFID(splitStr[14]));
         } catch (Exception e) {
-//            LogUtil.e(e.toString());
+            LogUtil.e(e.toString());
         }
-        vehicles.add(vehicle);
+        vehicles.add(0, vehicle);
     }
 
     @Override

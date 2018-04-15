@@ -47,7 +47,13 @@ public class VehicleAdapter extends RecyclerView.Adapter {
         loadingOff(false);
         if (endPosition != startPosition) notifyItemRangeChanged(startPosition, endPosition);
         else notifyDataSetChanged();
+    }
 
+    public void addData(Vehicle vehicles) {
+        if (vehicles != null) {
+            this.data.add(vehicles);
+        }
+        notifyDataSetChanged();
     }
 
     public void clearData() {
