@@ -2,17 +2,16 @@ package com.example.admin.demo3;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.demo3.customview.OnClickListener;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -69,10 +68,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng location = new LatLng(latitude, longitude);
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
-        mMap.animateCamera(zoom);
-        mMap.addMarker(new MarkerOptions().position(location).title("This imei in here"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-        Log.e("MapsActivity", "longitude: " + longitude + " - latitude: " + latitude);
+//        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
+//        mMap.animateCamera(zoom);
+//        mMap.addMarker(new MarkerOptions().position(location).title("This imei in here"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+
+        MarkerOptions marker = new MarkerOptions()
+                .position(location)
+                .title("This imei in here")
+                .draggable(true);
+
+        mMap.addMarker(marker);
+
+        CameraPosition camera = new CameraPosition.Builder()
+                .target(location)
+                .zoom(18)  //limite ->21
+                .bearing(0) // 0 - 365
+                .tilt(45) // limite ->90
+                .build();
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
     }
 }
