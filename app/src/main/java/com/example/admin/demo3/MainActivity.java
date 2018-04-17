@@ -126,6 +126,11 @@ public class MainActivity extends AppCompatActivity {
             public void onOpenDialogRfid(List<String> rfid) {
                 openDialogRfid(rfid);
             }
+
+            @Override
+            public void onItemListener(Vehicle vehicle) {
+                
+            }
         });
     }
 

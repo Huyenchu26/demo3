@@ -151,6 +151,8 @@ public class VehicleAdapter extends RecyclerView.Adapter {
         void onImageLocationClick(double longitude, double latitude);
 
         void onOpenDialogRfid(List<String> rfid);
+
+        void onItemListener(Vehicle vehicle);
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -202,6 +204,12 @@ public class VehicleAdapter extends RecyclerView.Adapter {
             isBindData = true;
 
             final Vehicle vehicle = data.get(position);
+            itemView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onDelayedClick(View v) {
+                    itemListener.onItemListener(vehicle);
+                }
+            });
             txtImei.setText(vehicle.getImei() + "");
             txtDatetime.setText(vehicle.getTime());
             positionStatus.setText(" Trạng thái định vị: " + vehicle.getPositionStatus());
