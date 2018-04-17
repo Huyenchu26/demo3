@@ -11,14 +11,11 @@ import com.example.admin.demo3.customview.MyAlertDialog;
 import com.example.admin.demo3.util.KeyboardUtils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class RFIDDialog extends MyAlertDialog {
-
 
     @BindView(R.id.container)
     View container;

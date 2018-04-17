@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,7 +23,6 @@ import com.example.admin.demo3.util.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -106,14 +104,8 @@ public class MainActivity extends AppCompatActivity {
     RFIDDialog rfidDialog;
 
     private void openDialogRfid(List<String> rfid) {
-        List<String> newRFID = new ArrayList<>();
-        if (rfid != null)
-            for (int i = 0; i < rfid.size(); i++) {
-                newRFID.add(String.valueOf(Long.parseLong(rfid.get(i), 16)));
-            }
-
         if (rfidDialog != null && rfidDialog.isShowing()) return;
-        rfidDialog = new RFIDDialog(this, newRFID);
+        rfidDialog = new RFIDDialog(this, rfid);
         rfidDialog.setCanceledOnTouchOutside(true);
         rfidDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -137,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
             String line;
             while ((line = reader.readLine()) != null) {
                 data.add(line);
-                LogUtil.e(line);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

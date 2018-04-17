@@ -75,14 +75,13 @@ public class GetRFID {
     }
 
     public static List<String> getRFID(String string) {
-        List<String> rfid = null;
-        for (int i = 0; i < string.length(); i++) {
+        List<String> rfid = new ArrayList<>();
+        for (int i = 0; i < (string.length()-8); i++) {
             String str = string.substring(i, i + 8);
-            if (NumberUtil.checkRFID(str)){
+            if (NumberUtil.checkRFID(str) && !str.contains("ffff")){
                 rfid.add(String.valueOf(NumberUtil.hexToDecimal(str.substring(0, 6))));
             }
         }
-        LogUtil.e(rfid.toString());
         return rfid;
     }
 
