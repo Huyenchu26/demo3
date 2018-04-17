@@ -67,6 +67,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:visibility="gone"
+            android:layout_toLeftOf="@+id/imageRight"
             android:layout_marginTop="8dp">
 
             <EditText

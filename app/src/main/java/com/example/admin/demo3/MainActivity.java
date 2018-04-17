@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,8 +47,11 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageSearchCancel;
     @BindView(R.id.imageSearchClearText)
     ImageView imageSearchClearText;
+    @BindView(R.id.imageRight)
+    ImageView imageRight;
 
     VehicleAdapter adapter;
+    List<Vehicle> vehiclesSearch = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupSearch() {
+        imageRight.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                String strSearch = editSearchQuery.getText().toString().trim();
+                clearData();
+                for (Vehicle vehicle : vehicles) {
+                    if (vehicle.getImei().contains(strSearch)) {
+                        vehiclesSearch.add(vehicle);
+                    }
+                }
+                adapter.addData(vehiclesSearch);
+            }
+        });
         imageSearchClearText.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
@@ -70,9 +88,16 @@ public class MainActivity extends AppCompatActivity {
         imageSearchCancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-
+                editSearchQuery.setText(null);
+                clearData();
+                adapter.addData(vehicles);
             }
         });
+    }
+
+    private void clearData() {
+        vehiclesSearch.clear();
+        adapter.clearData();
     }
 
     private void setupAdapter() {
@@ -80,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.addData(vehicles);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerViewVehicle.setLayoutManager(mLayoutManager);
+        SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
+        recyclerViewVehicle.setItemAnimator(animator);
         recyclerViewVehicle.setAdapter(adapter);
         adapter.setItemListener(new VehicleAdapter.ItemListener() {
             @Override
@@ -119,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         imageBack.setVisibility(View.GONE);
         relativeSearchLayout.setVisibility(View.VISIBLE);
+        imageRight.setVisibility(View.VISIBLE);
     }
 
     List<String> data = new ArrayList<>();
@@ -169,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             LogUtil.e(e.toString());
         }
-        vehicles.add(0, vehicle);
+        vehicles.add(vehicle);
     }
 
     @Override
