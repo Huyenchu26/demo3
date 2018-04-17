@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewVehicle.setLayoutManager(mLayoutManager);
         SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
         recyclerViewVehicle.setItemAnimator(animator);
+        recyclerViewVehicle.getItemAnimator().setAddDuration(1000);
         recyclerViewVehicle.setAdapter(adapter);
         adapter.setItemListener(new VehicleAdapter.ItemListener() {
             @Override
@@ -182,18 +183,25 @@ public class MainActivity extends AppCompatActivity {
             setValue(vehicle, splitStr);
         }
     }
-
+//7:cờ SOS (0: không có, 1: có SOS), 8: cờ mở cửa két xe (0: đóng/1 : mở),
+// 9:cờ động cơ (bật/tắt), 10: cờ dừng đỗ, 11: cờ GPS (0: có, 1:mất GPS),
     private void setValue(Vehicle vehicle, String[] splitStr) {
         try {
             vehicle.setImei(splitStr[0]);
             vehicle.setTime(splitStr[1]);
             vehicle.setLongitude(Double.parseDouble(splitStr[2]));
             vehicle.setLatitude(Double.parseDouble(splitStr[3]));
-            vehicle.setEngine(Integer.parseInt(splitStr[10]));
+            vehicle.setSos(Integer.parseInt(splitStr[7]));
+            vehicle.setTrunk(Integer.parseInt(splitStr[8]));
+            vehicle.setEngine(Integer.parseInt(splitStr[9]));
+            vehicle.setStatus(Integer.parseInt(splitStr[10]));
+            vehicle.setGps(Integer.parseInt(splitStr[11]));
+            vehicle.setFrontCamera(Integer.parseInt(splitStr[12]));
+            vehicle.setBehindCamera(Integer.parseInt(splitStr[13]));
+            vehicle.setRfid(GetRFID.getRFID(splitStr[14]));
+            vehicle.setPositionStatus(splitStr[16]);
             vehicle.setFirmware(splitStr[17]);
             vehicle.setCPUtime(splitStr[18]);
-            vehicle.setPositionStatus(splitStr[16]);
-            vehicle.setRfid(GetRFID.getRFID(splitStr[14]));
         } catch (Exception e) {
             LogUtil.e(e.toString());
         }
@@ -207,4 +215,5 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 //danh sách liên kết đơn, viết ct c/c++ tối ưu tìm phần tử thứ n từ dưới lên (gợi ý: 1 vòng for)
+
 }

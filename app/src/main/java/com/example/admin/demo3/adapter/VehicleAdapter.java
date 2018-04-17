@@ -178,6 +178,19 @@ public class VehicleAdapter extends RecyclerView.Adapter {
         @BindView(R.id.imgRunning)
         ImageView imgRunning;
 
+        @BindView(R.id.imgTrunk)
+        ImageView imgTrunk;
+        @BindView(R.id.imgGPS)
+        ImageView imgGPS;
+        @BindView(R.id.imgSOS)
+        ImageView imgSOS;
+        @BindView(R.id.imgStatus)
+        ImageView imgStatus;
+        @BindView(R.id.imgEngine)
+        ImageView imgEngine;
+
+
+
         public ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -198,8 +211,8 @@ public class VehicleAdapter extends RecyclerView.Adapter {
                     if (itemListener != null) itemListener.onImageLocationClick(vehicle.getLongitude(), vehicle.getLatitude());
                 }
             });
-            int egine = vehicle.getEngine();
-            if (egine == 1)
+
+            if (vehicle.getStatus() == 1)
                 imgRunning.setImageResource(R.mipmap.icon_running);
             else
                 imgRunning.setImageResource(R.mipmap.icon_stop);
@@ -211,6 +224,26 @@ public class VehicleAdapter extends RecyclerView.Adapter {
             });
             txtFirmWare.setText(" Firmware: " + vehicle.getFirmware());
             txtCPUtime.setText(" CPU time: " + vehicle.getCPUtime());
+
+            setTrafficLight(vehicle);
+        }
+
+        private void setTrafficLight(Vehicle vehicle) {
+            if (vehicle.getSos() == 1)
+                imgSOS.setImageResource(R.drawable.bg_traffic_light);
+            else imgSOS.setImageResource(R.drawable.bg_traffic_dark);
+            if (vehicle.getGps() == 1)
+                imgGPS.setImageResource(R.drawable.bg_traffic_light);
+            else imgGPS.setImageResource(R.drawable.bg_traffic_dark);
+            if (vehicle.getEngine() == 1)
+                imgEngine.setImageResource(R.drawable.bg_traffic_light);
+            else imgEngine.setImageResource(R.drawable.bg_traffic_dark);
+            if (vehicle.getTrunk() == 1)
+                imgTrunk.setImageResource(R.drawable.bg_traffic_light);
+            else imgTrunk.setImageResource(R.drawable.bg_traffic_dark);
+            if (vehicle.getStatus() == 1)
+                imgStatus.setImageResource(R.drawable.bg_traffic_light);
+            else imgStatus.setImageResource(R.drawable.bg_traffic_dark);
         }
 
     }

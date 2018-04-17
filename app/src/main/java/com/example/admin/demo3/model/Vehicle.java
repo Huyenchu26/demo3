@@ -12,17 +12,26 @@ public class Vehicle {
     public double longitude;
     public double latitude;
     public int sos;
-    public int trunk;
-    public int engine;
+    public int trunk; // cốp xe
+    public int engine; // động cơ
     public int gps;
+    public int status; // cờ dừng đỗ
     public int frontCamera;
     public int behindCamera;
-    public String positionStatus;
-    public String locate;
+    public String positionStatus; // trạng thái định vị
+    public String locate; // định vị
     public String firmware;
     public String CPUtime;
 
     public List<String> rfid;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public List<String> getRfid() {
         return rfid;
