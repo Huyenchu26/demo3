@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".history.HistoryCPUFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtCPUtime"
+            style="@style/textNomalBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CPU time" />
+
+        <ListView
+            android:id="@+id/listViewCPUtime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/txtCPUtime"></ListView>
+    </RelativeLayout>
+
+</LinearLayout>
