@@ -1,9 +1,12 @@
 package com.example.admin.demo3;
 
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +21,7 @@ import android.widget.RelativeLayout;
 import com.example.admin.demo3.adapter.VehicleAdapter;
 import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.dialog.RFIDDialog;
+import com.example.admin.demo3.history.HistoryContainerFragment;
 import com.example.admin.demo3.model.Vehicle;
 import com.example.admin.demo3.util.GetRFID;
 import com.example.admin.demo3.util.LogUtil;
@@ -129,7 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemListener(Vehicle vehicle) {
-
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.add(android.R.id.content, new HistoryContainerFragment(), "");
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
     }
