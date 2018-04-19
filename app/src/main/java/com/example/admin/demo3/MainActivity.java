@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemListener(Vehicle vehicle) {
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-                transaction.add(android.R.id.content, new HistoryContainerFragment(), "");
+                transaction.replace(android.R.id.content, new HistoryContainerFragment(), "");
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

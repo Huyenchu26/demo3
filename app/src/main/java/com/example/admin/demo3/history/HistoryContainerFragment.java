@@ -1,6 +1,7 @@
 package com.example.admin.demo3.history;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 
 import com.example.admin.demo3.R;
 import com.example.admin.demo3.customview.OnClickListener;
+import com.example.admin.demo3.dialog.DateDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +55,8 @@ public class HistoryContainerFragment extends Fragment {
         imageBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                getActivity().getFragmentManager().popBackStack();
-//                getActivity().onBackPressed();
+//                getActivity().getFragmentManager().popBackStack();
+                getActivity().onBackPressed();
             }
         });
         imageRight.setVisibility(View.VISIBLE);
@@ -66,7 +68,24 @@ public class HistoryContainerFragment extends Fragment {
         });
     }
 
+    DateDialog dateDialog;
     private void openDateDialog() {
+            if (dateDialog != null && dateDialog.isShowing()) return;
+            dateDialog = new DateDialog(getContext());
+            dateDialog.setCanceledOnTouchOutside(true);
+            dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
+                @Override
+                public void onDone(String startDate, String endDate) {
+                    // TODO: 4/19/2018 some thing with dates
+                }
+            });
+            dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    dateDialog.release();
+                }
+            });
+            dateDialog.show();
 
     }
 
