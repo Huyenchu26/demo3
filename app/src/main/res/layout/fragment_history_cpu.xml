@@ -4,24 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="6dp"
     tools:context=".history.HistoryCPUFragment">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/txtCPUtime"
             style="@style/textNomalBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CPU time" />
+            android:text="Time: 16/4/2018 - 19/4/2018" />
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/listViewCPUtime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/txtCPUtime"></ListView>
-    </RelativeLayout>
+            android:layout_below="@+id/txtCPUtime"/>
 
 </LinearLayout>

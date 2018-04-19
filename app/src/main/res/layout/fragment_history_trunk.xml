@@ -1,52 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/txtCPUtime"
+        style="@style/textNomalBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:text="Time: 26/4/2018 - 28/4/2018" />
 
-        <TextView
-            android:id="@+id/txtTrunk"
-            style="@style/textNomalBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Trunk" />
-
-        <TextView
-            android:id="@+id/txtResult"
-            style="@style/textNomal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtTrunk"
-            android:text="Result in here" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <TextView
+        style="@style/textNomal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#f2efef"
-        android:padding="8dp">
+        android:layout_below="@+id/txtTrunk"
+        android:layout_marginTop="26dp"
+        android:text="camera/trunk - số lần mở két" />
 
-        <TextView
-            android:id="@+id/txtCamera"
-            style="@style/textNomalBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Camera" />
+    <TextView
+        android:id="@+id/txtResult"
+        style="@style/textNomal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTrunk"
+        android:layout_marginTop="26dp"
+        android:text="Result in here" />
 
-        <TextView
-            android:id="@+id/txtCameraStatus"
-            style="@style/textNomal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtCamera"
-            android:text="Camera status in here" />
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="8dp">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/txtTrunk"-->
+    <!--style="@style/textNomalBold"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Trunk" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/txtResult"-->
+    <!--style="@style/textNomal"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/txtTrunk"-->
+    <!--android:text="Result in here" />-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#f2efef"-->
+    <!--android:padding="8dp">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/txtCamera"-->
+    <!--style="@style/textNomalBold"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Camera" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/txtCameraStatus"-->
+    <!--style="@style/textNomal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/txtCamera"-->
+    <!--android:text="Camera status in here" />-->
+    <!--</RelativeLayout>-->
 
 </LinearLayout>
