@@ -9,14 +9,14 @@ public class Vehicle {
     public String imei;
     public String date;
     public String time;
-    public double longitude;
-    public double latitude;
-    public int sos;
+    public double longitude; // kinh độ
+    public double latitude; // vĩ độ
+    public int sos; // cờ sos
     public int trunk; // cốp xe
     public int engine; // động cơ
-    public int gps;
+    public int gps; // cờ GPS
     public int status; // cờ dừng đỗ
-    public int frontCamera;
+    public int frontCamera; // số ảnh camera trước/sau
     public int behindCamera;
     public String positionStatus; // trạng thái định vị
     public String locate; // định vị
