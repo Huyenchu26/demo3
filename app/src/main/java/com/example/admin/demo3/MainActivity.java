@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -21,19 +20,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.admin.demo3.adapter.VehicleAdapter;
-import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.data.ApiClient;
 import com.example.admin.demo3.data.ApiHelper;
 import com.example.admin.demo3.dialog.RFIDDialog;
 import com.example.admin.demo3.history.HistoryContainerFragment;
 import com.example.admin.demo3.model.Vehicle;
-import com.example.admin.demo3.util.GetRFID;
 import com.example.admin.demo3.util.LogUtil;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +36,6 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setupAdapter();
 //        setupSearch();
 
-        ApiClient client = ApiHelper.getRetrofitInstance().create(ApiClient.class);
+        ApiClient client = ApiHelper.getClient().create(ApiClient.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
         Call<List<Vehicle>> call = client.loadVehicles();

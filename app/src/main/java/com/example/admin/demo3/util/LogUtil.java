@@ -2,6 +2,8 @@ package com.example.admin.demo3.util;
 
 import android.util.Log;
 
+import static com.example.admin.demo3.AppConfigs.TAG;
+
 public class LogUtil {
     // set level to DISABLE to disable log
     public static final int VERBOSE = Log.VERBOSE;
@@ -13,7 +15,6 @@ public class LogUtil {
     public static final int DISABLED = ERROR + 1;
 
     private static int mLevel = VERBOSE;
-    private static String TAG = "HC-Log";
 
     public static int getLevel() {
         return mLevel;

@@ -7,11 +7,12 @@ import java.util.List;
 import okhttp3.MediaType;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiClient {
 
-    @GET("WebService.asmx/parse_file")
+    @POST("WebService.asmx/parse_file")
     Call<List<Vehicle>> loadVehicles();
 
 }

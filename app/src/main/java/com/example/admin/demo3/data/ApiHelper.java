@@ -53,7 +53,7 @@ public class ApiHelper {
     /**
      * Create an instance of Retrofit object
      * */
-    public static Retrofit getRetrofitInstance() {
+    public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(AppConfigs.HOST)
