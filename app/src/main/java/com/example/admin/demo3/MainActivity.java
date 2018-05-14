@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         ApiClient client = ApiHelper.getClient().create(ApiClient.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-        Call<List<Vehicle>> call = client.loadVehicles();
+        Call<List<Vehicle>> call = client.loadVehicles(ApiHelper.getHeaders());
         call.enqueue(new Callback<List<Vehicle>>() {
             @Override
             public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {

@@ -19,35 +19,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiHelper {
 
-//    private OkHttpClient client;
-//    private ApiClient apiClient;
-//    private List<Call> callList = new ArrayList<>();
-//
-//    public ApiHelper(OkHttpClient client) {
-//        this.client = client;
-//    }
-//
-//    protected ApiClient getClient() {
-//        if (apiClient == null) {
-//            Gson gson = new GsonBuilder()
-//                    .setLenient()
-//                    .create();
-//            Retrofit.Builder builder = new Retrofit.Builder()
-//                    .baseUrl(AppConfigs.HOST)
-//                    .addConverterFactory(GsonConverterFactory.create(gson));
-//            if (AppConfigs.isEnableLog) builder = builder.client(client);
-//            Retrofit retrofit = builder.build();
-//            apiClient = retrofit.create(ApiClient.class);
-//        }
-//        return apiClient;
-//    }
-//
-//    protected HashMap<String, String> getParams(Object object) {
-//        Type type = new TypeToken<HashMap<String, String>>() {
-//        }.getType();
-//        return new Gson().fromJson(new Gson().toJson(object), type);
-//    }
-//
     private static Retrofit retrofit;
 
     /**
@@ -61,5 +32,11 @@ public class ApiHelper {
                     .build();
         }
         return retrofit;
+    }
+
+    public static HashMap<String, Object> getHeaders() {
+        HashMap<String, Object> headers = new HashMap<>();
+        headers.put(ApiClient.HEADER_CONTENT_TYPE, ApiClient.HEADER_CONTENT_TYPE_VALUE_JSON);
+        return headers;
     }
 }
