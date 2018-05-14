@@ -1,19 +1,9 @@
 package com.example.admin.demo3.data;
 
-import android.support.annotation.NonNull;
-import android.telecom.Call;
-
 import com.example.admin.demo3.AppConfigs;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -36,7 +26,8 @@ public class ApiHelper {
 
     public static HashMap<String, Object> getHeaders() {
         HashMap<String, Object> headers = new HashMap<>();
-        headers.put(ApiClient.HEADER_CONTENT_TYPE, ApiClient.HEADER_CONTENT_TYPE_VALUE_JSON);
+        headers.put(ApiClient.HEADER_CONTENT_TYPE, ApiClient.HEADER_CONTENT_TYPE_VALUE);
+        headers.put(ApiClient.HEADER_CONTENT_LENGTH, ApiClient.HEADER_CONTENT_LENGTH_VALUE);
         return headers;
     }
 }
