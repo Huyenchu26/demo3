@@ -81,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Vehicle>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                LogUtil.e("onFailure");
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                LogUtil.e("onFailure: " + t.getMessage());
             }
         });
-        
+
     }
 
 //    private void setupSearch() {
