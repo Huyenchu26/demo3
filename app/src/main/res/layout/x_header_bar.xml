@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbarHeader"
+<android.support.v7.widget.Toolbar
+    android:id="@+id/my_toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@drawable/bg_header"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minHeight="?attr/actionBarSize"
     app:contentInsetStart="0dp">
 
     <RelativeLayout
@@ -69,17 +74,17 @@
             android:layout_toLeftOf="@+id/imageRight"
             android:layout_marginTop="8dp">
 
-            <EditText
-                android:id="@+id/editSearchQuery"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_edit_text_normal"
-                android:hint="Search imei"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:paddingLeft="44dp"
-                android:paddingRight="44dp"
-                android:textSize="16sp" />
+            <!--<EditText-->
+                <!--android:id="@+id/editSearchQuery"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@drawable/bg_edit_text_normal"-->
+                <!--android:hint="Search imei"-->
+                <!--android:imeOptions="actionDone"-->
+                <!--android:inputType="number"-->
+                <!--android:paddingLeft="44dp"-->
+                <!--android:paddingRight="44dp"-->
+                <!--android:textSize="16sp" />-->
 
             <ImageView
                 android:id="@+id/imageSearchCancel"

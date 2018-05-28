@@ -14,7 +14,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -39,8 +38,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.editSearchQuery)
-    EditText editSearchQuery;
+//    @BindView(R.id.editSearchQuery)
+//    EditText editSearchQuery;
     @BindView(R.id.recyclerviewMain)
     RecyclerView recyclerViewVehicle;
     @BindView(R.id.imageBack)
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageSearchClearText;
     @BindView(R.id.imageRight)
     ImageView imageRight;
+
 
     VehicleAdapter adapter;
     List<Vehicle> vehiclesSearch = new ArrayList<>();
