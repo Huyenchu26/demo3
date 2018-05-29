@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -18,6 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.admin.demo3.adapter.VehicleAdapter;
 import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.dialog.RFIDDialog;
@@ -33,11 +39,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static com.android.volley.Request.Method.POST;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,30 +78,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this, MainActivity.this);
         init();
-        readFromFile();
-        setVehicleForList();
-        setupAdapter();
-        setupSearch();
-
-//        ApiClient client = ApiHelper.getClient().create(ApiClient.class);
-//
-//        /** Call the method with parameter in the interface to get the notice data*/
-//        Call<List<Vehicle>> call = client.loadVehicles(ApiHelper.getHeaders());
-//        call.enqueue(new Callback<List<Vehicle>>() {
-//            @Override
-//            public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
-//                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-//                LogUtil.e(response.toString());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Vehicle>> call, Throwable t) {
-//                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                LogUtil.e("onFailure: " + t.getMessage());
-//            }
-//        });
-
+//        readFromFile();
+//        setVehicleForList();
+//        setupAdapter();
+//        setupSearch();
+        setupConnect();
     }
+
 
     private void setupSearch() {
         imageRight.setOnClickListener(new OnClickListener() {
@@ -271,6 +266,46 @@ public class MainActivity extends AppCompatActivity {
         });
 
         thread.start();
+    }
+
+    private void setupConnect() {
+        //        ApiClient client = ApiHelper.getClient().create(ApiClient.class);
+        //
+        //        /** Call the method with parameter in the interface to get the notice data*/
+        //        Call<List<Vehicle>> call = client.loadVehicles(ApiHelper.getHeaders());
+        //        call.enqueue(new Callback<List<Vehicle>>() {
+        //            @Override
+        //            public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
+        //                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+        //                LogUtil.e(response.toString());
+        //            }
+        //
+        //            @Override
+        //            public void onFailure(Call<List<Vehicle>> call, Throwable t) {
+        //                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+        //                LogUtil.e("onFailure: " + t.getMessage());
+        //            }
+        //        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest jsonObjRequest = new StringRequest(POST, AppConfigs.HOST,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+        };
+        requestQueue.add(jsonObjRequest);
     }
 
 }

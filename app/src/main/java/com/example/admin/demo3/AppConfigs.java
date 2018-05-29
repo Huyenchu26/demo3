@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class AppConfigs {
-    public static final String HOST = "http://localhost:55592/";
+    public static final String HOST = "http://localhost:55592/WebService.asmx/parse_file";
 
     public static String TAG = "HC-Log";
 
