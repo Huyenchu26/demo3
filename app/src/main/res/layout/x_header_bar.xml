@@ -74,17 +74,17 @@
             android:layout_toLeftOf="@+id/imageRight"
             android:layout_marginTop="8dp">
 
-            <!--<EditText-->
-                <!--android:id="@+id/editSearchQuery"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@drawable/bg_edit_text_normal"-->
-                <!--android:hint="Search imei"-->
-                <!--android:imeOptions="actionDone"-->
-                <!--android:inputType="number"-->
-                <!--android:paddingLeft="44dp"-->
-                <!--android:paddingRight="44dp"-->
-                <!--android:textSize="16sp" />-->
+            <EditText
+                android:id="@+id/editSearchQuery"
+                android:hint="Search imei"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_edittext_nomal"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:paddingLeft="44dp"
+                android:paddingRight="44dp"
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/imageSearchCancel"

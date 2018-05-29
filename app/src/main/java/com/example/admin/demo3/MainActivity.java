@@ -14,32 +14,35 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.admin.demo3.adapter.VehicleAdapter;
-import com.example.admin.demo3.data.ApiClient;
-import com.example.admin.demo3.data.ApiHelper;
+import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.dialog.RFIDDialog;
 import com.example.admin.demo3.history.HistoryContainerFragment;
 import com.example.admin.demo3.model.Vehicle;
+import com.example.admin.demo3.util.GetRFID;
 import com.example.admin.demo3.util.LogUtil;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-//    @BindView(R.id.editSearchQuery)
-//    EditText editSearchQuery;
+    @BindView(R.id.editSearchQuery)
+    EditText editSearchQuery;
     @BindView(R.id.recyclerviewMain)
     RecyclerView recyclerViewVehicle;
     @BindView(R.id.imageBack)
@@ -63,60 +66,60 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this, MainActivity.this);
         init();
-//        readFromFile();
-//        setVehicleForList();
+        readFromFile();
+        setVehicleForList();
         setupAdapter();
-//        setupSearch();
+        setupSearch();
 
-        ApiClient client = ApiHelper.getClient().create(ApiClient.class);
-
-        /** Call the method with parameter in the interface to get the notice data*/
-        Call<List<Vehicle>> call = client.loadVehicles(ApiHelper.getHeaders());
-        call.enqueue(new Callback<List<Vehicle>>() {
-            @Override
-            public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
-                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-                LogUtil.e(response.toString());
-            }
-
-            @Override
-            public void onFailure(Call<List<Vehicle>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                LogUtil.e("onFailure: " + t.getMessage());
-            }
-        });
+//        ApiClient client = ApiHelper.getClient().create(ApiClient.class);
+//
+//        /** Call the method with parameter in the interface to get the notice data*/
+//        Call<List<Vehicle>> call = client.loadVehicles(ApiHelper.getHeaders());
+//        call.enqueue(new Callback<List<Vehicle>>() {
+//            @Override
+//            public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
+//                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+//                LogUtil.e(response.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Vehicle>> call, Throwable t) {
+//                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                LogUtil.e("onFailure: " + t.getMessage());
+//            }
+//        });
 
     }
 
-//    private void setupSearch() {
-//        imageRight.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onDelayedClick(View v) {
-//                String strSearch = editSearchQuery.getText().toString().trim();
-//                clearData();
-//                for (Vehicle vehicle : vehicles) {
-//                    if (vehicle.getImei().contains(strSearch)) {
-//                        vehiclesSearch.add(vehicle);
-//                    }
-//                }
-//                adapter.addData(vehiclesSearch);
-//            }
-//        });
-//        imageSearchClearText.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onDelayedClick(View v) {
-//                editSearchQuery.setText(null);
-//            }
-//        });
-//        imageSearchCancel.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onDelayedClick(View v) {
-//                editSearchQuery.setText(null);
-//                clearData();
-//                adapter.addData(vehicles);
-//            }
-//        });
-//    }
+    private void setupSearch() {
+        imageRight.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                String strSearch = editSearchQuery.getText().toString().trim();
+                clearData();
+                for (Vehicle vehicle : vehicles) {
+                    if (vehicle.getImei().contains(strSearch)) {
+                        vehiclesSearch.add(vehicle);
+                    }
+                }
+                adapter.addData(vehiclesSearch);
+            }
+        });
+        imageSearchClearText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                editSearchQuery.setText(null);
+            }
+        });
+        imageSearchCancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                editSearchQuery.setText(null);
+                clearData();
+                adapter.addData(vehicles);
+            }
+        });
+    }
 
     private void clearData() {
         vehiclesSearch.clear();
@@ -125,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupAdapter() {
         adapter = new VehicleAdapter();
-//        adapter.addData(vehicles);
+        adapter.addData(vehicles);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerViewVehicle.setLayoutManager(mLayoutManager);
         SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
@@ -184,67 +187,90 @@ public class MainActivity extends AppCompatActivity {
 
     List<String> data = new ArrayList<>();
 
-//    private void readFromFile() {
-//        try {
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("260699.txt")));
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                data.add(line);
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void readFromFile() {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("260699.txt")));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                data.add(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-//    List<Vehicle> vehicles = new ArrayList<>();
+    List<Vehicle> vehicles = new ArrayList<>();
 
-//    private void setVehicleForList() {
-//        List<String> time = new ArrayList<>();
-//        List<String> imei = new ArrayList<>();
-//        for (int i = 0; i < data.size(); i++) {
-//            if (i % 2 == 0)
-//                time.add(data.get(i));
-//            else imei.add(data.get(i));
-//        }
-//
-//        for (int i = 0; i < imei.size(); i++) {
-//            Vehicle vehicle = new Vehicle();
-//            String[] splitStr = imei.get(i).split(",");
-//            setValue(vehicle, splitStr);
-//        }
-//    }
+    private void setVehicleForList() {
+        List<String> time = new ArrayList<>();
+        List<String> imei = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            if (i % 2 == 0)
+                time.add(data.get(i));
+            else imei.add(data.get(i));
+        }
+
+        for (int i = 0; i < imei.size(); i++) {
+            Vehicle vehicle = new Vehicle();
+            String[] splitStr = imei.get(i).split(",");
+            setValue(vehicle, splitStr);
+        }
+    }
 //7:cờ SOS (0: không có, 1: có SOS), 8: cờ mở cửa két xe (0: đóng/1 : mở),
 // 9:cờ động cơ (bật/tắt), 10: cờ dừng đỗ, 11: cờ GPS (0: có, 1:mất GPS),
-//    private void setValue(Vehicle vehicle, String[] splitStr) {
-//        try {
-//            vehicle.setImei(splitStr[0]);
-//            vehicle.setTime(splitStr[1]);
-//            vehicle.setLongitude(Double.parseDouble(splitStr[2]));
-//            vehicle.setLatitude(Double.parseDouble(splitStr[3]));
-//            vehicle.setSos(Integer.parseInt(splitStr[7]));
-//            vehicle.setTrunk(Integer.parseInt(splitStr[8]));
-//            vehicle.setEngine(Integer.parseInt(splitStr[9]));
-//            vehicle.setStatus(Integer.parseInt(splitStr[10]));
-//            vehicle.setGps(Integer.parseInt(splitStr[11]));
-//            vehicle.setFrontCamera(Integer.parseInt(splitStr[12]));
-//            vehicle.setBehindCamera(Integer.parseInt(splitStr[13]));
-//            vehicle.setRfid(GetRFID.getRFID(splitStr[14]));
-//            vehicle.setPositionStatus(splitStr[16]);
-//            vehicle.setFirmware(splitStr[17]);
-//            vehicle.setCPUtime(splitStr[18]);
-//        } catch (Exception e) {
-//            LogUtil.e(e.toString());
-//        }
-//        vehicles.add(vehicle);
-//    }
+    private void setValue(Vehicle vehicle, String[] splitStr) {
+        try {
+            vehicle.setImei(splitStr[0]);
+            vehicle.setTime(splitStr[1]);
+            vehicle.setLongitude(Double.parseDouble(splitStr[2]));
+            vehicle.setLatitude(Double.parseDouble(splitStr[3]));
+            vehicle.setSos(Integer.parseInt(splitStr[7]));
+            vehicle.setTrunk(Integer.parseInt(splitStr[8]));
+            vehicle.setEngine(Integer.parseInt(splitStr[9]));
+            vehicle.setStatus(Integer.parseInt(splitStr[10]));
+            vehicle.setGps(Integer.parseInt(splitStr[11]));
+            vehicle.setFrontCamera(Integer.parseInt(splitStr[12]));
+            vehicle.setBehindCamera(Integer.parseInt(splitStr[13]));
+            vehicle.setRfid(GetRFID.getRFID(splitStr[14]));
+            vehicle.setPositionStatus(splitStr[16]);
+            vehicle.setFirmware(splitStr[17]);
+            vehicle.setCPUtime(splitStr[18]);
+        } catch (Exception e) {
+            LogUtil.e(e.toString());
+        }
+        vehicles.add(vehicle);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         return true;
+    }
+
+    public void sendPost() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(AppConfigs.HOST);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    conn.setRequestProperty("Accept","application/json");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
+
+                    conn.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
     }
 
 }
