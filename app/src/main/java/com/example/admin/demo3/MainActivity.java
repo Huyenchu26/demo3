@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -39,15 +38,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import static com.android.volley.Request.Method.POST;
 
@@ -82,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
 //        setVehicleForList();
 //        setupAdapter();
 //        setupSearch();
-        setupConnect();
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                setupConnect();
+            }
+        }, 500);
     }
 
 
@@ -292,19 +291,15 @@ public class MainActivity extends AppCompatActivity {
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        LogUtil.e(response.toString());
                     }
                 }, new com.android.volley.Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                LogUtil.e(error.toString());
             }
-        }) {
-            @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
-            }
-        };
+        }) ;
         requestQueue.add(jsonObjRequest);
     }
 

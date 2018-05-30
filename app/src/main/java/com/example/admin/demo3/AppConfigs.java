@@ -1,10 +1,9 @@
 package com.example.admin.demo3;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class AppConfigs {
     public static final String HOST = "http://localhost:55592/WebService.asmx/parse_file";
+
+    public static final String HOST_MQ = "http://192.168.10.13:3068/api/login";
 
     public static String TAG = "HC-Log";
 
