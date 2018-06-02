@@ -18,17 +18,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.admin.demo3.adapter.VehicleAdapter;
 import com.example.admin.demo3.customview.OnClickListener;
+import com.example.admin.demo3.data.ApiClient;
+import com.example.admin.demo3.data.ApiHelper;
 import com.example.admin.demo3.dialog.RFIDDialog;
 import com.example.admin.demo3.history.HistoryContainerFragment;
 import com.example.admin.demo3.model.Vehicle;
-import com.example.admin.demo3.util.GetRFID;
 import com.example.admin.demo3.util.LogUtil;
 
 import java.io.BufferedReader;
@@ -43,8 +41,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
-
-import static com.android.volley.Request.Method.POST;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         init();
 //        readFromFile();
 //        setVehicleForList();
-//        setupAdapter();
-//        setupSearch();
+        setupAdapter();
+        setupSearch();
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 setupConnect();
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 String strSearch = editSearchQuery.getText().toString().trim();
                 clearData();
                 for (Vehicle vehicle : vehicles) {
-                    if (vehicle.getImei().contains(strSearch)) {
+                    if (vehicle.data.getImei().contains(strSearch)) {
                         vehiclesSearch.add(vehicle);
                     }
                 }
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupAdapter() {
         adapter = new VehicleAdapter();
-        adapter.addData(vehicles);
+//        adapter.addData(vehicles);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerViewVehicle.setLayoutManager(mLayoutManager);
         SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onImageLocationClick(double longitude, double latitude) {
+            public void onImageLocationClick(String longitude, String latitude) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                 intent.putExtra("longitude", longitude);
                 intent.putExtra("latitude", latitude);
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onItemListener(Vehicle vehicle) {
+            public void onItemListener(Vehicle.Data vehicle) {
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(android.R.id.content, new HistoryContainerFragment(), "");
@@ -181,61 +180,65 @@ public class MainActivity extends AppCompatActivity {
 
     List<String> data = new ArrayList<>();
 
-    private void readFromFile() {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("260699.txt")));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                data.add(line);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     List<Vehicle> vehicles = new ArrayList<>();
 
-    private void setVehicleForList() {
-        List<String> time = new ArrayList<>();
-        List<String> imei = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            if (i % 2 == 0)
-                time.add(data.get(i));
-            else imei.add(data.get(i));
-        }
+//    private void readFromFile() {
+//        try {
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("260699.txt")));
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                data.add(line);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        for (int i = 0; i < imei.size(); i++) {
-            Vehicle vehicle = new Vehicle();
-            String[] splitStr = imei.get(i).split(",");
-            setValue(vehicle, splitStr);
-        }
-    }
+
+//    private void setVehicleForList() {
+//        List<String> time = new ArrayList<>();
+//        List<String> imei = new ArrayList<>();
+//        for (int i = 0; i < data.size(); i++) {
+//            if (i % 2 == 0)
+//                time.add(data.get(i));
+//            else imei.add(data.get(i));
+//        }
+//
+//        for (int i = 0; i < imei.size(); i++) {
+//            Vehicle vehicle = new Vehicle();
+//            String[] splitStr = imei.get(i).split(",");
+//            setValue(vehicle, splitStr);
+//        }
+//    }
+
+
+
 //7:cờ SOS (0: không có, 1: có SOS), 8: cờ mở cửa két xe (0: đóng/1 : mở),
 // 9:cờ động cơ (bật/tắt), 10: cờ dừng đỗ, 11: cờ GPS (0: có, 1:mất GPS),
-    private void setValue(Vehicle vehicle, String[] splitStr) {
-        try {
-            vehicle.setImei(splitStr[0]);
-            vehicle.setTime(splitStr[1]);
-            vehicle.setLongitude(Double.parseDouble(splitStr[2]));
-            vehicle.setLatitude(Double.parseDouble(splitStr[3]));
-            vehicle.setSos(Integer.parseInt(splitStr[7]));
-            vehicle.setTrunk(Integer.parseInt(splitStr[8]));
-            vehicle.setEngine(Integer.parseInt(splitStr[9]));
-            vehicle.setStatus(Integer.parseInt(splitStr[10]));
-            vehicle.setGps(Integer.parseInt(splitStr[11]));
-            vehicle.setFrontCamera(Integer.parseInt(splitStr[12]));
-            vehicle.setBehindCamera(Integer.parseInt(splitStr[13]));
-            vehicle.setRfid(GetRFID.getRFID(splitStr[14]));
-            vehicle.setPositionStatus(splitStr[16]);
-            vehicle.setFirmware(splitStr[17]);
-            vehicle.setCPUtime(splitStr[18]);
-        } catch (Exception e) {
-            LogUtil.e(e.toString());
-        }
-        vehicles.add(vehicle);
-    }
+//    private void setValue(Vehicle vehicle, String[] splitStr) {
+//        try {
+//            vehicle.setImei(splitStr[0]);
+//            vehicle.setTime(splitStr[1]);
+//            vehicle.setLongitude(Double.parseDouble(splitStr[2]));
+//            vehicle.setLatitude(Double.parseDouble(splitStr[3]));
+//            vehicle.setSos(Integer.parseInt(splitStr[7]));
+//            vehicle.setTrunk(Integer.parseInt(splitStr[8]));
+//            vehicle.setEngine(Integer.parseInt(splitStr[9]));
+//            vehicle.setStatus(Integer.parseInt(splitStr[10]));
+//            vehicle.setGps(Integer.parseInt(splitStr[11]));
+//            vehicle.setFrontCamera(Integer.parseInt(splitStr[12]));
+//            vehicle.setBehindCamera(Integer.parseInt(splitStr[13]));
+//            vehicle.setRfid(GetRFID.getRFID(splitStr[14]));
+//            vehicle.setPositionStatus(splitStr[16]);
+//            vehicle.setFirmware(splitStr[17]);
+//            vehicle.setCPUtime(splitStr[18]);
+//        } catch (Exception e) {
+//            LogUtil.e(e.toString());
+//        }
+//        vehicles.add(vehicle);
+//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -267,40 +270,33 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
     }
 
+
+
     private void setupConnect() {
-        //        ApiClient client = ApiHelper.getClient().create(ApiClient.class);
-        //
-        //        /** Call the method with parameter in the interface to get the notice data*/
-        //        Call<List<Vehicle>> call = client.loadVehicles(ApiHelper.getHeaders());
-        //        call.enqueue(new Callback<List<Vehicle>>() {
-        //            @Override
-        //            public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
-        //                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-        //                LogUtil.e(response.toString());
-        //            }
-        //
-        //            @Override
-        //            public void onFailure(Call<List<Vehicle>> call, Throwable t) {
-        //                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-        //                LogUtil.e("onFailure: " + t.getMessage());
-        //            }
-        //        });
+                ApiClient client = ApiHelper.getClient().create(ApiClient.class);
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest jsonObjRequest = new StringRequest(POST, AppConfigs.HOST,
-                new com.android.volley.Response.Listener<String>() {
+                /** Call the method with parameter in the interface to get the notice data*/
+                Call<List<Vehicle>> call = client.loadVehicles();
+                call.enqueue(new Callback<List<Vehicle>>() {
                     @Override
-                    public void onResponse(String response) {
-                        LogUtil.e(response.toString());
-                    }
-                }, new com.android.volley.Response.ErrorListener() {
+                    public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
+                        if(response.isSuccessful()) {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtil.e(error.toString());
-            }
-        }) ;
-        requestQueue.add(jsonObjRequest);
+                            adapter.addData(response.body());
+                            LogUtil.e("isSuccessful: " + response.toString());
+                        } else {
+                            LogUtil.e("" + response.errorBody());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Vehicle>> call, Throwable t) {
+                        t.printStackTrace();
+                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        LogUtil.e("onFailure: " + t.getMessage());
+                    }
+                });
+
     }
 
 }

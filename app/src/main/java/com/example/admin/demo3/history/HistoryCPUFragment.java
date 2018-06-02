@@ -46,7 +46,7 @@ public class HistoryCPUFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_history_cpu, container, false);
         ButterKnife.bind(this, view);
-        setupList();
+//        setupList();
         return view;
     }
 
@@ -71,7 +71,7 @@ public class HistoryCPUFragment extends Fragment {
         getTime();
         for (int i = 0; i < time.size(); i++){
             Vehicle vehicle = new Vehicle();
-            vehicle.setTime(time.get(i));
+//            vehicle.setTime(time.get(i));
             vehicleList.add(vehicle);
         }
         adapter.addData(vehicleList);

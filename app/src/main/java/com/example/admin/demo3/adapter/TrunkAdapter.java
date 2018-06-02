@@ -140,7 +140,7 @@ public class TrunkAdapter extends RecyclerView.Adapter{
 
             final Vehicle vehicle = data.get(position);
 
-            textView.setText(vehicle.getTime());
+//            textView.setText(vehicle.getTime());
 
         }
     }

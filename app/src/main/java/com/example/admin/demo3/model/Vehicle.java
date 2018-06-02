@@ -1,179 +1,269 @@
 package com.example.admin.demo3.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Vehicle {
-    public Vehicle() {
+
+    @SerializedName("timestamp_recv")
+    @Expose
+    public TimestampRecv timestampRecv;
+    @SerializedName("data")
+    @Expose
+    public Data data;
+
+    public class TimestampRecv {
+
+        @SerializedName("ukn_dtl_1")
+        @Expose
+        private String uknDtl1;
+        @SerializedName("rec_timestamp")
+        @Expose
+        private String recTimestamp;
+        @SerializedName("ukn_dtl_2")
+        @Expose
+        private String uknDtl2;
+
+        public String getUknDtl1() {
+            return uknDtl1;
+        }
+
+        public void setUknDtl1(String uknDtl1) {
+            this.uknDtl1 = uknDtl1;
+        }
+
+        public String getRecTimestamp() {
+            return recTimestamp;
+        }
+
+        public void setRecTimestamp(String recTimestamp) {
+            this.recTimestamp = recTimestamp;
+        }
+
+        public String getUknDtl2() {
+            return uknDtl2;
+        }
+
+        public void setUknDtl2(String uknDtl2) {
+            this.uknDtl2 = uknDtl2;
+        }
+
     }
 
-    public String imei;
-    public String date;
-    public String time;
-    public double longitude; // kinh độ
-    public double latitude; // vĩ độ
-    public int sos; // cờ sos
-    public int trunk; // cốp xe
-    public int engine; // động cơ
-    public int gps; // cờ GPS
-    public int status; // cờ dừng đỗ
-    public int frontCamera; // số ảnh camera trước/sau
-    public int behindCamera;
-    public String positionStatus; // trạng thái định vị
-    public String locate; // định vị
-    public String firmware;
-    public String CPUtime;
+    public class Data {
 
-    public List<String> rfid;
+        @SerializedName("imei")
+        @Expose
+        private String imei;
+        @SerializedName("date_time")
+        @Expose
+        private String dateTime;
+        @SerializedName("longitude")
+        @Expose
+        private String longitude;
+        @SerializedName("latitude")
+        @Expose
+        private String latitude;
+        @SerializedName("reserve_0")
+        @Expose
+        private String reserve0;
+        @SerializedName("reserve_1")
+        @Expose
+        private String reserve1;
+        @SerializedName("reserve_2")
+        @Expose
+        private String reserve2;
+        @SerializedName("sos")
+        @Expose
+        private String sos;
+        @SerializedName("trunk")
+        @Expose
+        private String trunk;
+        @SerializedName("engine")
+        @Expose
+        private String engine;
+        @SerializedName("status")
+        @Expose
+        private String status;
+        @SerializedName("gps")
+        @Expose
+        private String gps;
+        @SerializedName("front_cam")
+        @Expose
+        private String frontCam;
+        @SerializedName("back_cam")
+        @Expose
+        private String backCam;
+        @SerializedName("rfid_list")
+        @Expose
+        private String rfidList;
+        @SerializedName("reserve_3")
+        @Expose
+        private String reserve3;
+        @SerializedName("pos_status")
+        @Expose
+        private String posStatus;
+        @SerializedName("firmware")
+        @Expose
+        private String firmware;
+        @SerializedName("cpu_time")
+        @Expose
+        private String cpuTime;
 
-    public int getStatus() {
-        return status;
+        public String getImei() {
+            return imei;
+        }
+
+        public void setImei(String imei) {
+            this.imei = imei;
+        }
+
+        public String getDateTime() {
+            return dateTime;
+        }
+
+        public void setDateTime(String dateTime) {
+            this.dateTime = dateTime;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getReserve0() {
+            return reserve0;
+        }
+
+        public void setReserve0(String reserve0) {
+            this.reserve0 = reserve0;
+        }
+
+        public String getReserve1() {
+            return reserve1;
+        }
+
+        public void setReserve1(String reserve1) {
+            this.reserve1 = reserve1;
+        }
+
+        public String getReserve2() {
+            return reserve2;
+        }
+
+        public void setReserve2(String reserve2) {
+            this.reserve2 = reserve2;
+        }
+
+        public String getSos() {
+            return sos;
+        }
+
+        public void setSos(String sos) {
+            this.sos = sos;
+        }
+
+        public String getTrunk() {
+            return trunk;
+        }
+
+        public void setTrunk(String trunk) {
+            this.trunk = trunk;
+        }
+
+        public String getEngine() {
+            return engine;
+        }
+
+        public void setEngine(String engine) {
+            this.engine = engine;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getGps() {
+            return gps;
+        }
+
+        public void setGps(String gps) {
+            this.gps = gps;
+        }
+
+        public String getFrontCam() {
+            return frontCam;
+        }
+
+        public void setFrontCam(String frontCam) {
+            this.frontCam = frontCam;
+        }
+
+        public String getBackCam() {
+            return backCam;
+        }
+
+        public void setBackCam(String backCam) {
+            this.backCam = backCam;
+        }
+
+        public String getRfidList() {
+            return rfidList;
+        }
+
+        public void setRfidList(String rfidList) {
+            this.rfidList = rfidList;
+        }
+
+        public String getReserve3() {
+            return reserve3;
+        }
+
+        public void setReserve3(String reserve3) {
+            this.reserve3 = reserve3;
+        }
+
+        public String getPosStatus() {
+            return posStatus;
+        }
+
+        public void setPosStatus(String posStatus) {
+            this.posStatus = posStatus;
+        }
+
+        public String getFirmware() {
+            return firmware;
+        }
+
+        public void setFirmware(String firmware) {
+            this.firmware = firmware;
+        }
+
+        public String getCpuTime() {
+            return cpuTime;
+        }
+
+        public void setCpuTime(String cpuTime) {
+            this.cpuTime = cpuTime;
+        }
+
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public List<String> getRfid() {
-        return rfid;
-    }
-
-    public String getPositionStatus() {
-        return positionStatus;
-    }
-
-    public void setPositionStatus(String positionStatus) {
-        this.positionStatus = positionStatus;
-    }
-
-    public String getFirmware() {
-        return firmware;
-    }
-
-    public void setFirmware(String firmware) {
-        this.firmware = firmware;
-    }
-
-    public String getCPUtime() {
-        return CPUtime;
-    }
-
-    public void setCPUtime(String CPUtime) {
-        this.CPUtime = CPUtime;
-    }
-
-    public void setRfid(List<String> rfid) {
-        this.rfid = rfid;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public int isSos() {
-        return sos;
-    }
-
-    public int isTrunk() {
-        return trunk;
-    }
-
-    public int isEngine() {
-        return engine;
-    }
-
-    public int isGps() {
-        return gps;
-    }
-
-    public int getFrontCamera() {
-        return frontCamera;
-    }
-
-    public int getBehindCamera() {
-        return behindCamera;
-    }
-
-    public String getLocate() {
-        return locate;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setSos(int sos) {
-        this.sos = sos;
-    }
-
-    public void setTrunk(int trunk) {
-        this.trunk = trunk;
-    }
-
-    public void setEngine(int engine) {
-        this.engine = engine;
-    }
-
-    public int getSos() {
-        return sos;
-    }
-
-    public int getTrunk() {
-        return trunk;
-    }
-
-    public int getEngine() {
-        return engine;
-    }
-
-    public int getGps() {
-        return gps;
-    }
-
-    public void setGps(int gps) {
-        this.gps = gps;
-    }
-
-    public void setFrontCamera(int frontCamera) {
-        this.frontCamera = frontCamera;
-    }
-
-    public void setBehindCamera(int behindCamera) {
-        this.behindCamera = behindCamera;
-    }
-
-    public void setLocate(String locate) {
-        this.locate = locate;
-    }
-
-    public String getImei() {
-        return imei;
-    }
-
-    public void setImei(String imei) {
-        this.imei = imei;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 }

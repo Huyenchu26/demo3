@@ -49,6 +49,18 @@ public class VehicleAdapter extends RecyclerView.Adapter {
         else notifyDataSetChanged();
     }
 
+    public void addVehicle(List<Vehicle> vehicles) {
+        int startPosition = data.size();
+        int endPosition = startPosition;
+        if (vehicles != null && !vehicles.isEmpty()) {
+            this.data.addAll(vehicles);
+            endPosition = data.size();
+        }
+        loadingOff(false);
+        if (endPosition != startPosition) notifyItemRangeChanged(startPosition, endPosition);
+        else notifyDataSetChanged();
+    }
+
     public void addData(Vehicle vehicles) {
         if (vehicles != null) {
             this.data.add(vehicles);
@@ -148,11 +160,11 @@ public class VehicleAdapter extends RecyclerView.Adapter {
     public interface ItemListener {
         void onRetryClick();
 
-        void onImageLocationClick(double longitude, double latitude);
+        void onImageLocationClick(String longitude, String latitude);
 
         void onOpenDialogRfid(List<String> rfid);
 
-        void onItemListener(Vehicle vehicle);
+        void onItemListener(Vehicle.Data vehicle);
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -204,52 +216,53 @@ public class VehicleAdapter extends RecyclerView.Adapter {
             isBindData = true;
 
             final Vehicle vehicle = data.get(position);
+            final Vehicle.Data vehicleData = vehicle.data;
             itemView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
-                    itemListener.onItemListener(vehicle);
+                    itemListener.onItemListener(vehicleData);
                 }
             });
-            txtImei.setText(vehicle.getImei() + "");
-            txtDatetime.setText(vehicle.getTime());
-            positionStatus.setText(" Trạng thái định vị: " + vehicle.getPositionStatus());
+            txtImei.setText(vehicleData.getImei() + "");
+            txtDatetime.setText(vehicleData.getDateTime());
+            positionStatus.setText(" Trạng thái định vị: " + vehicleData.getPosStatus());
             imgLocation.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
-                    if (itemListener != null) itemListener.onImageLocationClick(vehicle.getLongitude(), vehicle.getLatitude());
+                    if (itemListener != null) itemListener.onImageLocationClick(vehicleData.getLongitude(), vehicleData.getLatitude());
                 }
             });
 
-            if (vehicle.getStatus() == 1)
+            if (vehicleData.getStatus().equals("1"))
                 imgRunning.setImageResource(R.mipmap.icon_running);
             else
                 imgRunning.setImageResource(R.mipmap.icon_stop);
-            imgRunning.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onDelayedClick(View v) {
-                    if (itemListener != null) itemListener.onOpenDialogRfid(vehicle.getRfid());
-                }
-            });
-            txtFirmWare.setText(" Firmware: " + vehicle.getFirmware());
-            txtCPUtime.setText(" CPU time: " + vehicle.getCPUtime());
+//            imgRunning.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onDelayedClick(View v) {
+//                    if (itemListener != null) itemListener.onOpenDialogRfid(vehicle.getRfidList());
+//                }
+//            });
+            txtFirmWare.setText(" Firmware: " + vehicleData.getFirmware());
+            txtCPUtime.setText(" CPU time: " + vehicleData.getCpuTime());
 
-            setTrafficLight(vehicle);
+            setTrafficLight(vehicleData);
         }
 
-        private void setTrafficLight(Vehicle vehicle) {
-            if (vehicle.getSos() == 1)
+        private void setTrafficLight(Vehicle.Data vehicle) {
+            if (vehicle.getSos().equals("1"))
                 imgSOS.setImageResource(R.drawable.bg_traffic_light);
             else imgSOS.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getGps() == 1)
+            if (vehicle.getGps().equals("1"))
                 imgGPS.setImageResource(R.drawable.bg_traffic_light);
             else imgGPS.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getEngine() == 1)
+            if (vehicle.getEngine().equals("1"))
                 imgEngine.setImageResource(R.drawable.bg_traffic_light);
             else imgEngine.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getTrunk() == 1)
+            if (vehicle.getTrunk().equals("1"))
                 imgTrunk.setImageResource(R.drawable.bg_traffic_light);
             else imgTrunk.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getStatus() == 1)
+            if (vehicle.getStatus().equals("1"))
                 imgStatus.setImageResource(R.drawable.bg_traffic_light);
             else imgStatus.setImageResource(R.drawable.bg_traffic_dark);
         }
