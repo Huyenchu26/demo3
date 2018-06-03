@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 public class TrunkAdapter extends RecyclerView.Adapter{
 
     protected List<Vehicle> data = new ArrayList<>();
-    protected CPUtimeAdapter.ItemListener itemListener;
+    protected ItemListener itemListener;
     private boolean showLoadingMore = false;
     private boolean showLoading = true;
     private boolean isError = false;
@@ -109,7 +109,7 @@ public class TrunkAdapter extends RecyclerView.Adapter{
         return 0;
     }
 
-    public void setItemListener(CPUtimeAdapter.ItemListener itemListener) {
+    public void setItemListener(ItemListener itemListener) {
         this.itemListener = itemListener;
     }
 

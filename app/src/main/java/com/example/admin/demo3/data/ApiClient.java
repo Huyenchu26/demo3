@@ -8,7 +8,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
+import retrofit2.http.QueryName;
 
 public interface ApiClient {
 
@@ -21,8 +25,8 @@ public interface ApiClient {
     @GET("ParseFile")
     Call<List<Vehicle>> loadVehicles();
 
-    @GET("ParseFile?imei={imei}&startDate={startDate}&endDate={endDate}")
-    Call<List<Vehicle>> loadHistory(@Path("imei") String imei,
-                                    @Path("startDate") String startDate,
-                                    @Path("endDate") String endDate);
+    @GET("ParseFile")
+    Call<List<Vehicle>> loadHistory(@Query("imei") String imei,
+                                    @Query("startDate") String startDate,
+                                    @Query("endDate") String endDate);
 }

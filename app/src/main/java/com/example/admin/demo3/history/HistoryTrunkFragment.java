@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.demo3.R;
+import com.example.admin.demo3.model.Vehicle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -14,15 +18,15 @@ public class HistoryTrunkFragment extends Fragment {
 
 
     String startDate, endDate;
+    List<Vehicle> vehicleList = new ArrayList<>();
     String imei;
 
-    public static HistoryTrunkFragment newInstance(String imei, String startDate, String endDate) {
-        return new HistoryTrunkFragment().setDate(imei, startDate, endDate);
+    public static HistoryTrunkFragment newInstance(String imei, List<Vehicle> vehicleList) {
+        return new HistoryTrunkFragment().setDate(imei, vehicleList);
     }
 
-    public HistoryTrunkFragment setDate(String imei, String startDate, String endDate){
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public HistoryTrunkFragment setDate(String imei, List<Vehicle> vehicleList){
+        this.vehicleList = vehicleList;
         this.imei = imei;
         return this;
     }

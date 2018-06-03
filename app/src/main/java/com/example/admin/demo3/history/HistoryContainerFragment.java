@@ -56,7 +56,7 @@ public class HistoryContainerFragment extends Fragment {
     private View view;
     Unbinder unbinder;
 
-    public static List<Vehicle> vehicleList = new ArrayList<>();
+    private List<Vehicle> vehicleList = new ArrayList<>();
 
     Date dateCurrent = Calendar.getInstance().getTime();
     String imei;
@@ -75,16 +75,7 @@ public class HistoryContainerFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setupConnect();
-            }
-        }, 500);
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
-        System.out.println(dateFormat.format(cal)); //2016/11/16 12:08:43
+        setupConnect();
     }
 
     private void setupHeader() {
@@ -105,23 +96,24 @@ public class HistoryContainerFragment extends Fragment {
     }
 
     DateDialog dateDialog;
+
     private void openDateDialog() {
-            if (dateDialog != null && dateDialog.isShowing()) return;
-            dateDialog = new DateDialog(getContext());
-            dateDialog.setCanceledOnTouchOutside(true);
-            dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
-                @Override
-                public void onDone(String startDate, String endDate) {
-                    // TODO: 4/19/2018 some thing with dates
-                }
-            });
-            dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    dateDialog.release();
-                }
-            });
-            dateDialog.show();
+        if (dateDialog != null && dateDialog.isShowing()) return;
+        dateDialog = new DateDialog(getContext());
+        dateDialog.setCanceledOnTouchOutside(true);
+        dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
+            @Override
+            public void onDone(String startDate, String endDate) {
+                // TODO: 4/19/2018 some thing with dates
+            }
+        });
+        dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dateDialog.release();
+            }
+        });
+        dateDialog.show();
 
     }
 
@@ -160,10 +152,18 @@ public class HistoryContainerFragment extends Fragment {
 
             }
         });
-        adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addTab("Trunk");
-        adapter.addTab("CPU time");
-        viewpagerOption.setAdapter(adapter);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (vehicleList != null){
+                    adapter = new ViewPagerAdapter(getChildFragmentManager());
+                    adapter.addTab("Trunk");
+                    adapter.addTab("CPU time");
+                    viewpagerOption.setAdapter(adapter);
+                }
+            }
+        }, 2 * 1000);
 
     }
 
@@ -176,8 +176,8 @@ public class HistoryContainerFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) return HistoryTrunkFragment.newInstance(imei, startDate, endDate);
-            else return HistoryCPUFragment.newInstance(imei, startDate, endDate);
+            if (position == 0) return HistoryTrunkFragment.newInstance(imei, vehicleList);
+            else return HistoryCPUFragment.newInstance(imei, vehicleList);
         }
 
         @Override
@@ -198,11 +198,11 @@ public class HistoryContainerFragment extends Fragment {
     private void setupConnect() {
         ApiClient client = ApiHelper.getClient().create(ApiClient.class);
         /** Call the method with parameter in the interface to get the notice data*/
-        Call<List<Vehicle>> call = client.loadHistory(imei, startDate, endDate);
+        Call<List<Vehicle>> call = client.loadHistory("260600", "2018/02/23 09:04:17", "2018/02/23 09:05:05");
         call.enqueue(new Callback<List<Vehicle>>() {
             @Override
             public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     vehicleList.addAll(response.body());
                     LogUtil.e("isSuccessful: " + response.toString());
                 } else {

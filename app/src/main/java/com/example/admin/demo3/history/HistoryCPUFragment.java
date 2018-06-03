@@ -38,13 +38,12 @@ public class HistoryCPUFragment extends Fragment {
     String startDate, endDate;
     String imei;
 
-    public static HistoryCPUFragment newInstance(String imei, String startDate, String endDate) {
-        return new HistoryCPUFragment().setDate(imei, startDate, endDate);
+    public static HistoryCPUFragment newInstance(String imei, List<Vehicle> vehicleList) {
+        return new HistoryCPUFragment().setDate(imei, vehicleList);
     }
 
-    public HistoryCPUFragment setDate(String imei, String startDate, String endDate){
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public HistoryCPUFragment setDate(String imei, List<Vehicle> vehicleList){
+        this.vehicleList = vehicleList;
         this.imei = imei;
         return this;
     }
@@ -56,34 +55,13 @@ public class HistoryCPUFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_history_cpu, container, false);
         ButterKnife.bind(this, view);
-//        setupList();
+        setupList();
         return view;
     }
 
-    List<String> time = new ArrayList<>();
-
-    public List<String> getTime() {
-        time.add("2018/02/23 09:04:37");
-        time.add("2018/02/23 09:05:00");
-        time.add("2018/02/23 09:04:37");
-        time.add("2018/02/23 09:05:00");
-        time.add("2018/02/23 09:04:37");
-        time.add("2018/02/23 09:04:37");
-        time.add("2018/02/23 09:05:00");
-        time.add("2018/02/23 09:04:37");
-        time.add("2018/02/23 09:05:00");
-        time.add("2018/02/23 09:04:37");
-        return time;
-    }
 
     private void setupList() {
         adapter = new CPUtimeAdapter();
-        getTime();
-        for (int i = 0; i < time.size(); i++){
-            Vehicle vehicle = new Vehicle();
-            vehicle.data.setDateTime(time.get(i).toString());
-            vehicleList.add(vehicle);
-        }
         adapter.addData(vehicleList);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         listViewCPUtime.setLayoutManager(mLayoutManager);

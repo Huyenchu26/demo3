@@ -22,18 +22,18 @@ import butterknife.ButterKnife;
 public class CPUtimeAdapter extends RecyclerView.Adapter {
 
 
-        protected List<Vehicle> data = new ArrayList<>();
+        protected List<Vehicle> vehicleList = new ArrayList<>();
         protected ItemListener itemListener;
         private boolean showLoadingMore = false;
         private boolean showLoading = true;
         private boolean isError = false;
 
         public void addData(List<Vehicle> vehicles) {
-            int startPosition = data.size();
+            int startPosition = vehicleList.size();
             int endPosition = startPosition;
             if (vehicles != null && !vehicles.isEmpty()) {
-                this.data.addAll(vehicles);
-                endPosition = data.size();
+                this.vehicleList.addAll(vehicles);
+                endPosition = vehicleList.size();
             }
             loadingOff(false);
             if (endPosition != startPosition) notifyItemRangeChanged(startPosition, endPosition);
@@ -42,13 +42,13 @@ public class CPUtimeAdapter extends RecyclerView.Adapter {
 
         public void addData(Vehicle vehicles) {
             if (vehicles != null) {
-                this.data.add(vehicles);
+                this.vehicleList.add(vehicles);
             }
             notifyDataSetChanged();
         }
 
         public void clearData() {
-            data.clear();
+            vehicleList.clear();
             loadingOff(false);
             showLoading = true;
             notifyDataSetChanged();
@@ -66,10 +66,10 @@ public class CPUtimeAdapter extends RecyclerView.Adapter {
                 if (isError) {
                     isError = false;
                     // notifyItemChanged(data.size() + 1);
-                    notifyItemRemoved(data.size());
-                    notifyItemRangeChanged(data.size(), data.size() + 1);
+                    notifyItemRemoved(vehicleList.size());
+                    notifyItemRangeChanged(vehicleList.size(), vehicleList.size() + 1);
                 } else
-                    notifyItemRangeChanged(data.size(), data.size() + 1);
+                    notifyItemRangeChanged(vehicleList.size(), vehicleList.size() + 1);
             }
 
         }
@@ -82,8 +82,8 @@ public class CPUtimeAdapter extends RecyclerView.Adapter {
 
         private void errorOn() {
             isError = true;
-            notifyItemRemoved(data.size());
-            notifyItemRangeChanged(data.size(), data.size() + 1);
+            notifyItemRemoved(vehicleList.size());
+            notifyItemRangeChanged(vehicleList.size(), vehicleList.size() + 1);
         }
 
         @NonNull
@@ -104,8 +104,8 @@ public class CPUtimeAdapter extends RecyclerView.Adapter {
 
         @Override
         public int getItemCount() {
-            if (showLoading || isError || data.size() == 0) return data.size() + 1;
-            return showLoadingMore ? data.size() + 1 : data.size();
+            if (showLoading || isError || vehicleList.size() == 0) return vehicleList.size() + 1;
+            return showLoadingMore ? vehicleList.size() + 1 : vehicleList.size();
         }
 
         @Override
@@ -142,7 +142,7 @@ public class CPUtimeAdapter extends RecyclerView.Adapter {
                 needUpdate = false;
                 isBindData = true;
 
-                final Vehicle.Data vehicle = data.get(position).data;
+                final Vehicle.Data vehicle = vehicleList.get(position).data;
 
                 textView.setText(vehicle.getDateTime());
 
