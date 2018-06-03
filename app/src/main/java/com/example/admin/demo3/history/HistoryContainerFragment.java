@@ -3,6 +3,7 @@ package com.example.admin.demo3.history;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -17,20 +18,30 @@ import android.widget.ImageView;
 
 import com.example.admin.demo3.R;
 import com.example.admin.demo3.customview.OnClickListener;
+import com.example.admin.demo3.data.ApiClient;
+import com.example.admin.demo3.data.ApiHelper;
 import com.example.admin.demo3.dialog.DateDialog;
+import com.example.admin.demo3.model.Vehicle;
+import com.example.admin.demo3.util.DateUtils;
+import com.example.admin.demo3.util.LogUtil;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HistoryContainerFragment extends Fragment {
 
     private static int TAB_COUNT = 2;
-
 
     @BindView(R.id.tabOption)
     TabLayout tabOption;
@@ -45,10 +56,35 @@ public class HistoryContainerFragment extends Fragment {
     private View view;
     Unbinder unbinder;
 
+    public static List<Vehicle> vehicleList = new ArrayList<>();
+
+    Date dateCurrent = Calendar.getInstance().getTime();
+    String imei;
+    String startDate = "";
+    String endDate = DateUtils.dateToStringSent(dateCurrent);
+
+    public static HistoryContainerFragment newInstance(String imei) {
+        return new HistoryContainerFragment().setImei(imei);
+    }
+
+    public HistoryContainerFragment setImei(String imei) {
+        this.imei = imei;
+        return this;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setupConnect();
+            }
+        }, 500);
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        System.out.println(dateFormat.format(cal)); //2016/11/16 12:08:43
     }
 
     private void setupHeader() {
@@ -140,8 +176,8 @@ public class HistoryContainerFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) return new HistoryTrunkFragment();
-            else return new HistoryCPUFragment();
+            if (position == 0) return HistoryTrunkFragment.newInstance(imei, startDate, endDate);
+            else return HistoryCPUFragment.newInstance(imei, startDate, endDate);
         }
 
         @Override
@@ -157,5 +193,28 @@ public class HistoryContainerFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    private void setupConnect() {
+        ApiClient client = ApiHelper.getClient().create(ApiClient.class);
+        /** Call the method with parameter in the interface to get the notice data*/
+        Call<List<Vehicle>> call = client.loadHistory(imei, startDate, endDate);
+        call.enqueue(new Callback<List<Vehicle>>() {
+            @Override
+            public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
+                if(response.isSuccessful()) {
+                    vehicleList.addAll(response.body());
+                    LogUtil.e("isSuccessful: " + response.toString());
+                } else {
+                    LogUtil.e("" + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Vehicle>> call, Throwable t) {
+                t.printStackTrace();
+                LogUtil.e("onFailure History: " + t.getMessage());
+            }
+        });
     }
 }

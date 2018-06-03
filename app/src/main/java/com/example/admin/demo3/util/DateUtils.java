@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class DateUtils {
 
-
+    private static final String DATE_FORMAT_SENT = "yyyy/MM/dd HH:mm:ss";
     private static final String DATE_FORMAT = "dd/MM/yyyy";
     private static final String DATE_FORMAT_SIMPLE = "MM/yyyy";
     private static final String DATE_FORMAT_FULL = "HH:mm dd/MM/yyyy";
@@ -22,15 +22,12 @@ public class DateUtils {
     private DateUtils() {
     }
 
-//    public static String getJapanDateFromText(String raw) {
-//        if (!raw.contains("-") || raw.equalsIgnoreCase(AppConfigs.NULL_STRING)) return raw;
-//        return raw.replaceFirst("-", "年")
-//                .replaceFirst("-", "月")
-//                + "日";
-//    }
-
     public static String dateToString(Date date) {
         return new SimpleDateFormat(DATE_FORMAT).format(date);
+    }
+
+    public static String dateToStringSent(Date date) {
+        return new SimpleDateFormat(DATE_FORMAT_SENT).format(date);
     }
 
     public static String dateToStringFull(Date date) {

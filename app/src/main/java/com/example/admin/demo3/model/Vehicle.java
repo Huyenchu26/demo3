@@ -52,7 +52,7 @@ public class Vehicle {
 
     }
 
-    public class Data {
+    public static class Data {
 
         @SerializedName("imei")
         @Expose

@@ -142,9 +142,9 @@ public class CPUtimeAdapter extends RecyclerView.Adapter {
                 needUpdate = false;
                 isBindData = true;
 
-                final Vehicle vehicle = data.get(position);
+                final Vehicle.Data vehicle = data.get(position).data;
 
-//                textView.setText(vehicle.get());
+                textView.setText(vehicle.getDateTime());
 
             }
         }

@@ -35,8 +35,18 @@ public class HistoryCPUFragment extends Fragment {
     CPUtimeAdapter adapter;
     List<Vehicle> vehicleList = new ArrayList<>();
 
-    public HistoryCPUFragment() {
-        // Required empty public constructor
+    String startDate, endDate;
+    String imei;
+
+    public static HistoryCPUFragment newInstance(String imei, String startDate, String endDate) {
+        return new HistoryCPUFragment().setDate(imei, startDate, endDate);
+    }
+
+    public HistoryCPUFragment setDate(String imei, String startDate, String endDate){
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.imei = imei;
+        return this;
     }
 
 
@@ -71,7 +81,7 @@ public class HistoryCPUFragment extends Fragment {
         getTime();
         for (int i = 0; i < time.size(); i++){
             Vehicle vehicle = new Vehicle();
-//            vehicle.setTime(time.get(i));
+            vehicle.data.setDateTime(time.get(i).toString());
             vehicleList.add(vehicle);
         }
         adapter.addData(vehicleList);

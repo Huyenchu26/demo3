@@ -11,6 +11,22 @@ import com.example.admin.demo3.R;
 import butterknife.ButterKnife;
 
 public class HistoryTrunkFragment extends Fragment {
+
+
+    String startDate, endDate;
+    String imei;
+
+    public static HistoryTrunkFragment newInstance(String imei, String startDate, String endDate) {
+        return new HistoryTrunkFragment().setDate(imei, startDate, endDate);
+    }
+
+    public HistoryTrunkFragment setDate(String imei, String startDate, String endDate){
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.imei = imei;
+        return this;
+    }
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

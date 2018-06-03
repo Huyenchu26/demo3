@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/my_toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
+    android:background="@drawable/bg_header"
     android:elevation="4dp"
-    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:minHeight="?attr/actionBarSize"
-    app:contentInsetStart="0dp">
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    app:contentInsetStart="0dp"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,10 +37,10 @@
             android:text="Title"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:visibility="gone"
             android:textColor="@color/colorTextWhiteSecond"
             android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/imageRight"
@@ -62,7 +62,6 @@
             android:visibility="gone" />
 
 
-
         <!--Search Layout-->
         <RelativeLayout
             android:id="@+id/relativeSearchLayout"
@@ -70,16 +69,16 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="12dp"
-            android:visibility="gone"
+            android:layout_marginTop="8dp"
             android:layout_toLeftOf="@+id/imageRight"
-            android:layout_marginTop="8dp">
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/editSearchQuery"
-                android:hint="Search imei"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_edittext_nomal"
+                android:hint="Search imei"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:paddingLeft="44dp"
