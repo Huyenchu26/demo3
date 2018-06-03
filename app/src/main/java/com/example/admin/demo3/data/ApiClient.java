@@ -22,8 +22,7 @@ public interface ApiClient {
     Call<List<Vehicle>> loadVehicles();
 
     @GET("ParseFile?imei={imei}&startDate={startDate}&endDate={endDate}")
-    Call<Vehicle> loadHistory(@HeaderMap HashMap<String, Object> header,
-                                    @Path("imei") String imei,
+    Call<List<Vehicle>> loadHistory(@Path("imei") String imei,
                                     @Path("startDate") String startDate,
                                     @Path("endDate") String endDate);
 }

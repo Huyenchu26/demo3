@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.admin.demo3.R;
 import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.model.Vehicle;
+import com.example.admin.demo3.util.GetRFID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,7 +205,6 @@ public class VehicleAdapter extends RecyclerView.Adapter {
         ImageView imgEngine;
 
 
-
         public ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -229,7 +229,8 @@ public class VehicleAdapter extends RecyclerView.Adapter {
             imgLocation.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
-                    if (itemListener != null) itemListener.onImageLocationClick(vehicleData.getLongitude(), vehicleData.getLatitude());
+                    if (itemListener != null)
+                        itemListener.onImageLocationClick(vehicleData.getLongitude(), vehicleData.getLatitude());
                 }
             });
 
@@ -237,12 +238,12 @@ public class VehicleAdapter extends RecyclerView.Adapter {
                 imgRunning.setImageResource(R.mipmap.icon_running);
             else
                 imgRunning.setImageResource(R.mipmap.icon_stop);
-//            imgRunning.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onDelayedClick(View v) {
-//                    if (itemListener != null) itemListener.onOpenDialogRfid(vehicle.getRfidList());
-//                }
-//            });
+            imgRunning.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onDelayedClick(View v) {
+                    if (itemListener != null) itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.getRfidList()));
+                }
+            });
             txtFirmWare.setText(" Firmware: " + vehicleData.getFirmware());
             txtCPUtime.setText(" CPU time: " + vehicleData.getCpuTime());
 
