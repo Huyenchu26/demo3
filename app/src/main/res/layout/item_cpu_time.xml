@@ -13,4 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorTextSecondary" />
+    <include
+        android:id="@+id/toolbarHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewEnd"
+        layout="@layout/x_header_traffic" />
 </LinearLayout>

@@ -5,71 +5,63 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/txtCPUtime"
+        android:id="@+id/txtTrunktime"
         style="@style/textNomalBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Time: 26/4/2018 - 28/4/2018" />
 
-    <TextView
-        style="@style/textNomal"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTrunk"
-        android:layout_marginTop="26dp"
-        android:text="camera/trunk - số lần mở két" />
+        android:background="@color/colorHeader"
+        android:gravity="bottom"
+        android:paddingBottom="4dp">
 
-    <TextView
-        android:id="@+id/txtResult"
-        style="@style/textNomal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTrunk"
-        android:layout_marginTop="26dp"
-        android:text="Result in here" />
+        <TextView
+            style="@style/textNomalItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="STT" />
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:padding="8dp">-->
+        <TextView
+            style="@style/textNomalItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Time" />
 
-    <!--<TextView-->
-    <!--android:id="@+id/txtTrunk"-->
-    <!--style="@style/textNomalBold"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Trunk" />-->
+        <TextView
+            style="@style/textNomalItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Time" />
 
-    <!--<TextView-->
-    <!--android:id="@+id/txtResult"-->
-    <!--style="@style/textNomal"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@+id/txtTrunk"-->
-    <!--android:text="Result in here" />-->
+        <TextView
+            style="@style/textNomalItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="front" />
 
-    <!--</RelativeLayout>-->
+        <TextView
+            style="@style/textNomalItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="behind" />
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="#f2efef"-->
-    <!--android:padding="8dp">-->
+    </LinearLayout>
 
-    <!--<TextView-->
-    <!--android:id="@+id/txtCamera"-->
-    <!--style="@style/textNomalBold"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Camera" />-->
+    <View style="@style/LineDivideVertical" />
 
-    <!--<TextView-->
-    <!--android:id="@+id/txtCameraStatus"-->
-    <!--style="@style/textNomal"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@+id/txtCamera"-->
-    <!--android:text="Camera status in here" />-->
-    <!--</RelativeLayout>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewTrunk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
 
 </LinearLayout>

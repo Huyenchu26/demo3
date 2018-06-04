@@ -19,6 +19,7 @@ public class DateUtils {
     private static final String DATE_FORMAT_CARD = "MM/yy";
     private static final String DATE_FORMAT_JP = "yyyy年MM月dd日";
     private static final String DATE_FORMAT_FULL_JP = "HH:mm yyyy年MM月dd日";
+
     private DateUtils() {
     }
 
@@ -28,6 +29,17 @@ public class DateUtils {
 
     public static String dateToStringSent(Date date) {
         return new SimpleDateFormat(DATE_FORMAT_SENT).format(date);
+    }
+
+    public static Date stringToDate(String date) {
+        SimpleDateFormat myFormat = new SimpleDateFormat(DATE_FORMAT_SENT);
+        Date result = new Date();
+        try {
+            result = myFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public static String dateToStringFull(Date date) {

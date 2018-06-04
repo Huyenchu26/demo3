@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.admin.demo3.R;
 import com.example.admin.demo3.model.Vehicle;
+import com.example.admin.demo3.util.HistoryUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,33 +19,33 @@ import butterknife.ButterKnife;
 
 public class TrunkAdapter extends RecyclerView.Adapter{
 
-    protected List<Vehicle> data = new ArrayList<>();
+    protected List<HistoryUtil.ItemTrunk> itemTrunksList = new ArrayList<>();
     protected ItemListener itemListener;
     private boolean showLoadingMore = false;
     private boolean showLoading = true;
     private boolean isError = false;
 
-    public void addData(List<Vehicle> vehicles) {
-        int startPosition = data.size();
+    public void addData(List<HistoryUtil.ItemTrunk> itemTrunks) {
+        int startPosition = itemTrunksList.size();
         int endPosition = startPosition;
-        if (vehicles != null && !vehicles.isEmpty()) {
-            this.data.addAll(vehicles);
-            endPosition = data.size();
+        if (itemTrunks != null && !itemTrunks.isEmpty()) {
+            this.itemTrunksList.addAll(itemTrunks);
+            endPosition = itemTrunksList.size();
         }
         loadingOff(false);
         if (endPosition != startPosition) notifyItemRangeChanged(startPosition, endPosition);
         else notifyDataSetChanged();
     }
 
-    public void addData(Vehicle vehicles) {
-        if (vehicles != null) {
-            this.data.add(vehicles);
+    public void addData(HistoryUtil.ItemTrunk itemTrunk) {
+        if (itemTrunk != null) {
+            this.itemTrunksList.add(itemTrunk);
         }
         notifyDataSetChanged();
     }
 
     public void clearData() {
-        data.clear();
+        itemTrunksList.clear();
         loadingOff(false);
         showLoading = true;
         notifyDataSetChanged();
@@ -62,10 +63,10 @@ public class TrunkAdapter extends RecyclerView.Adapter{
             if (isError) {
                 isError = false;
                 // notifyItemChanged(data.size() + 1);
-                notifyItemRemoved(data.size());
-                notifyItemRangeChanged(data.size(), data.size() + 1);
+                notifyItemRemoved(itemTrunksList.size());
+                notifyItemRangeChanged(itemTrunksList.size(), itemTrunksList.size() + 1);
             } else
-                notifyItemRangeChanged(data.size(), data.size() + 1);
+                notifyItemRangeChanged(itemTrunksList.size(), itemTrunksList.size() + 1);
         }
 
     }
@@ -78,8 +79,8 @@ public class TrunkAdapter extends RecyclerView.Adapter{
 
     private void errorOn() {
         isError = true;
-        notifyItemRemoved(data.size());
-        notifyItemRangeChanged(data.size(), data.size() + 1);
+        notifyItemRemoved(itemTrunksList.size());
+        notifyItemRangeChanged(itemTrunksList.size(), itemTrunksList.size() + 1);
     }
 
     @NonNull
@@ -100,8 +101,8 @@ public class TrunkAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        if (showLoading || isError || data.size() == 0) return data.size() + 1;
-        return showLoadingMore ? data.size() + 1 : data.size();
+        if (showLoading || isError || itemTrunksList.size() == 0) return itemTrunksList.size() + 1;
+        return showLoadingMore ? itemTrunksList.size() + 1 : itemTrunksList.size();
     }
 
     @Override
@@ -125,8 +126,16 @@ public class TrunkAdapter extends RecyclerView.Adapter{
         public int position = -1;
         protected boolean isBindData = true;
 
-        @BindView(R.id.txt)
-        TextView textView;
+        @BindView(R.id.trunkNumber)
+        TextView trunkNumber;
+        @BindView(R.id.trunkNumberPicture1)
+        TextView numberPictureFront;
+        @BindView(R.id.trunkNumberPicture2)
+        TextView numberPictureBehind;
+        @BindView(R.id.trunkTimeLine)
+        TextView trunkTimeLine;
+        @BindView(R.id.trunkTime)
+        TextView trunkTime;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -138,10 +147,13 @@ public class TrunkAdapter extends RecyclerView.Adapter{
             needUpdate = false;
             isBindData = true;
 
-            final Vehicle vehicle = data.get(position);
+            final HistoryUtil.ItemTrunk itemTrunk = itemTrunksList.get(position);
 
-//            textView.setText(vehicle.getTime());
-
+            trunkNumber.setText(position + 1);
+            trunkTimeLine.setText(itemTrunk.getTime() + "");
+            numberPictureFront.setText(itemTrunk.getFrontCam());
+            numberPictureBehind.setText(itemTrunk.getBackCam());
+            trunkTime.setText(itemTrunk.getTime() + "");
         }
     }
 }
