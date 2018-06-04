@@ -68,8 +68,7 @@ public class HistoryCPUFragment extends Fragment {
 
     private void setupList() {
         adapter = new CPUtimeAdapter();
-        List<Vehicle> vehicles = new ArrayList<>();
-        vehicles = HistoryUtil.getListRestartCPU(vehicleList);
+        List<Vehicle> vehicles = HistoryUtil.getListRestartCPU(vehicleList);
         adapter.addData(vehicles);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         listViewCPUtime.setLayoutManager(mLayoutManager);

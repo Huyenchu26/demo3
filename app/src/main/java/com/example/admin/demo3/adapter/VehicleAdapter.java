@@ -13,6 +13,7 @@ import com.example.admin.demo3.R;
 import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.model.Vehicle;
 import com.example.admin.demo3.util.GetRFID;
+import com.example.admin.demo3.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -216,6 +217,7 @@ public class VehicleAdapter extends RecyclerView.Adapter {
             isBindData = true;
 
             final Vehicle vehicle = data.get(position);
+            LogUtil.e("size: " + data.size());
             final Vehicle.Data vehicleData = vehicle.data;
             itemView.setOnClickListener(new OnClickListener() {
                 @Override
@@ -223,7 +225,7 @@ public class VehicleAdapter extends RecyclerView.Adapter {
                     itemListener.onItemListener(vehicleData);
                 }
             });
-            txtImei.setText(vehicleData.getImei() + "");
+            txtImei.setText(vehicleData.getImei());
             txtDatetime.setText(vehicleData.getDateTime());
             positionStatus.setText(" Trạng thái định vị: " + vehicleData.getPosStatus());
             imgLocation.setOnClickListener(new OnClickListener() {
@@ -241,7 +243,8 @@ public class VehicleAdapter extends RecyclerView.Adapter {
             imgRunning.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
-                    if (itemListener != null) itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.getRfidList()));
+                    if (itemListener != null)
+                        itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.getRfidList()));
                 }
             });
             txtFirmWare.setText(" Firmware: " + vehicleData.getFirmware());

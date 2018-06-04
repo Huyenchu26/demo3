@@ -21,12 +21,13 @@ import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.data.ApiClient;
 import com.example.admin.demo3.data.ApiHelper;
 import com.example.admin.demo3.dialog.DateDialog;
+import com.example.admin.demo3.event.ChangeDateEvent;
 import com.example.admin.demo3.model.Vehicle;
 import com.example.admin.demo3.util.DateUtils;
 import com.example.admin.demo3.util.LogUtil;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,10 +59,9 @@ public class HistoryContainerFragment extends Fragment {
 
     private List<Vehicle> vehicleList = new ArrayList<>();
 
-    Date dateCurrent = Calendar.getInstance().getTime();
     String imei;
-    String startDate = "";
-    String endDate = DateUtils.dateToStringSent(dateCurrent);
+    String startDate = null;
+    String endDate = null;
 
     public static HistoryContainerFragment newInstance(String imei) {
         return new HistoryContainerFragment().setImei(imei);
@@ -75,7 +75,15 @@ public class HistoryContainerFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupDate();
         setupConnect();
+    }
+
+    private void setupDate() {
+        Date dateCurrent = Calendar.getInstance().getTime();
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (3 * DAY_IN_MS)));
+        endDate = DateUtils.dateToStringSent(dateCurrent);
     }
 
     private void setupHeader() {
@@ -105,6 +113,8 @@ public class HistoryContainerFragment extends Fragment {
             @Override
             public void onDone(String startDate, String endDate) {
                 // TODO: 4/19/2018 some thing with dates
+//                setupConnect();
+                EventBus.getDefault().post(new ChangeDateEvent(startDate, endDate));
             }
         });
         dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -124,6 +134,18 @@ public class HistoryContainerFragment extends Fragment {
         setupViewPager();
         setupHeader();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -197,12 +219,12 @@ public class HistoryContainerFragment extends Fragment {
 
     private void setupConnect() {
         ApiClient client = ApiHelper.getClient().create(ApiClient.class);
-        /** Call the method with parameter in the interface to get the notice data*/
         Call<List<Vehicle>> call = client.loadHistory("260600", "2018/02/23 09:04:17", "2018/02/23 09:05:05");
         call.enqueue(new Callback<List<Vehicle>>() {
             @Override
             public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
                 if (response.isSuccessful()) {
+                    vehicleList.clear();
                     vehicleList.addAll(response.body());
                     LogUtil.e("isSuccessful: " + response.toString());
                 } else {
