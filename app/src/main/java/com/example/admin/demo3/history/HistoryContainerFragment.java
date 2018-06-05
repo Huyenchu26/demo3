@@ -221,7 +221,7 @@ public class HistoryContainerFragment extends Fragment {
 
     private void setupConnect() {
         ApiClient client = ApiHelper.getClient().create(ApiClient.class);
-        Call<List<Vehicle>> call = client.loadHistory("260600", "2018/02/23 09:04:17", "2018/02/23 09:05:05");
+        Call<List<Vehicle>> call = client.loadHistory("140594", "2018/02/23 09:05:10", "2018/02/23 09:14:24");
         call.enqueue(new Callback<List<Vehicle>>() {
             @Override
             public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {

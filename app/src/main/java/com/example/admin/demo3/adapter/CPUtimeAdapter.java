@@ -53,7 +53,7 @@ public class CPUtimeAdapter extends BaseAdapter<CPUtimeAdapter.ItemViewHolder, C
         }
 
         protected void bindData(int position) {
-            this.position = position;
+            super.bindData(position);
             needUpdate = false;
             isBindData = true;
 

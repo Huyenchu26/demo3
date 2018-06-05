@@ -48,17 +48,17 @@ public class TrunkAdapter extends BaseAdapter<TrunkAdapter.ItemViewHolder, Trunk
         }
 
         protected void bindData(int position) {
-            this.position = position;
+            super.bindData(position);
             needUpdate = false;
             isBindData = true;
 
             final HistoryUtil.ItemTrunk itemTrunk = data.get(position);
 
-            trunkNumber.setText(position + 1);
-            trunkTimeLine.setText(itemTrunk.getTime() + "");
-            numberPictureFront.setText(itemTrunk.getFrontCam());
-            numberPictureBehind.setText(itemTrunk.getBackCam());
-            trunkTime.setText(itemTrunk.getTime() + "");
+            trunkNumber.setText(Integer.toString(position + 1));
+            trunkTimeLine.setText(itemTrunk.getTimeLine());
+            numberPictureFront.setText(Integer.toString(itemTrunk.getFrontCam()));
+            numberPictureBehind.setText(Integer.toString(itemTrunk.getBackCam()));
+            trunkTime.setText(Double.toString(itemTrunk.getTime()));
         }
     }
 }
