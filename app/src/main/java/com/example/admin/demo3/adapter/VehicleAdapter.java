@@ -91,7 +91,6 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             isBindData = true;
 
             final Vehicle vehicle = data.get(position);
-            LogUtil.e("size: " + data.size());
             final Vehicle.Data vehicleData = vehicle.data;
             itemView.setOnClickListener(new OnClickListener() {
                 @Override

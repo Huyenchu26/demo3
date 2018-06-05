@@ -40,13 +40,16 @@ public class HistoryCPUFragment extends Fragment {
     String imei;
     Unbinder unbinder;
 
-    public static HistoryCPUFragment newInstance(String imei, List<Vehicle> vehicleList) {
-        return new HistoryCPUFragment().setDate(imei, vehicleList);
+    public static HistoryCPUFragment newInstance(String imei, List<Vehicle> vehicleList,
+                                                 String startDate, String endDate) {
+        return new HistoryCPUFragment().setDate(imei, vehicleList, startDate, endDate);
     }
 
-    public HistoryCPUFragment setDate(String imei, List<Vehicle> vehicleList){
+    public HistoryCPUFragment setDate(String imei, List<Vehicle> vehicleList, String startDate, String endDate){
         this.vehicleList = vehicleList;
         this.imei = imei;
+        this.startDate = startDate;
+        this.endDate = endDate;
         return this;
     }
 
@@ -56,15 +59,9 @@ public class HistoryCPUFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_history_cpu, container, false);
         unbinder = ButterKnife.bind(this, view);
-        setupText();
+        txtCPUtime.setText("Time: " + startDate + " - " + endDate);
         setupAdapter();
         return view;
-    }
-
-    private void setupText() {
-        startDate = vehicleList.get(0).data.getDateTime();
-        endDate = vehicleList.get(vehicleList.size() - 1).data.getDateTime();
-        txtCPUtime.setText("Time: " + startDate + " - " + endDate);
     }
 
     private void setupAdapter() {

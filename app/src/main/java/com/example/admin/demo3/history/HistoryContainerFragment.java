@@ -86,6 +86,7 @@ public class HistoryContainerFragment extends Fragment {
         long DAY_IN_MS = 1000 * 60 * 60 * 24;
         startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (3 * DAY_IN_MS)));
         endDate = DateUtils.dateToStringSent(dateCurrent);
+        LogUtil.e("startDate: " + startDate + " - endDate" + endDate);
     }
 
     private void setupHeader() {
@@ -200,8 +201,8 @@ public class HistoryContainerFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) return HistoryTrunkFragment.newInstance(imei, vehicleList);
-            else return HistoryCPUFragment.newInstance(imei, vehicleList);
+            if (position == 0) return HistoryTrunkFragment.newInstance(imei, vehicleList, startDate, endDate);
+            else return HistoryCPUFragment.newInstance(imei, vehicleList, startDate, endDate);
         }
 
         @Override
@@ -221,7 +222,7 @@ public class HistoryContainerFragment extends Fragment {
 
     private void setupConnect() {
         ApiClient client = ApiHelper.getClient().create(ApiClient.class);
-        Call<List<Vehicle>> call = client.loadHistory("140594", "2018/02/23 09:05:10", "2018/02/23 09:14:24");
+        Call<List<Vehicle>> call = client.loadHistory(imei, startDate, endDate);
         call.enqueue(new Callback<List<Vehicle>>() {
             @Override
             public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {

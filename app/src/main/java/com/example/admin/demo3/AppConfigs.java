@@ -11,5 +11,4 @@ public final class AppConfigs {
 }
 // 192.168.47.105
 //http://localhost:55592/WebService.asmx/parse_file
-//http://192.168.6.34:22222/api/ParseFile?imei=140599&
-// startDate=2018/02/28%2001:11:15&endDate=2018/02/28%2001:14:00
+//http://192.168.6.34:22222/api/ParseFile?imei=140594&startDate=2018/02/23%2009:05:10&endDate=2018/02/23%2009:14:24

@@ -37,13 +37,16 @@ public class HistoryTrunkFragment extends Fragment {
     private View view;
     Unbinder unbinder;
 
-    public static HistoryTrunkFragment newInstance(String imei, List<Vehicle> vehicleList) {
-        return new HistoryTrunkFragment().setDate(imei, vehicleList);
+    public static HistoryTrunkFragment newInstance(String imei, List<Vehicle> vehicleList,
+                                                   String startDate, String endDate) {
+        return new HistoryTrunkFragment().setDate(imei, vehicleList, startDate, endDate);
     }
 
-    public HistoryTrunkFragment setDate(String imei, List<Vehicle> vehicleList) {
+    public HistoryTrunkFragment setDate(String imei, List<Vehicle> vehicleList, String startDate, String endDate) {
         this.vehicleList = vehicleList;
         this.imei = imei;
+        this.startDate = startDate;
+        this.endDate = endDate;
         return this;
     }
 
@@ -53,7 +56,7 @@ public class HistoryTrunkFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_history_trunk, container, false);
         unbinder = ButterKnife.bind(this, view);
-        setupText();
+        txtTrunktime.setText("Time: " + startDate + " - " + endDate);
         setupAdapter();
         return view;
     }
@@ -61,12 +64,6 @@ public class HistoryTrunkFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    private void setupText() {
-        startDate = vehicleList.get(0).data.getDateTime();
-        endDate = vehicleList.get(vehicleList.size() - 1).data.getDateTime();
-        txtTrunktime.setText("Time: " + startDate + " - " + endDate);
     }
 
     private void setupAdapter() {

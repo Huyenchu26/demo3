@@ -14,7 +14,6 @@
             android:id="@+id/lineRfid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Ten line san xuat"
             android:gravity="center"
             android:textColor="@color/colorTextPrimary"
             android:textSize="18dp" />
