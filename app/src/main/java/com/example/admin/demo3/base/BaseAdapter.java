@@ -95,7 +95,8 @@ public abstract class BaseAdapter<IVH extends BaseAdapter.BaseItemViewHolder, IL
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        if (holder instanceof BaseItemViewHolder)
+            ((IVH) holder).bindData(position);
     }
 
     @Override

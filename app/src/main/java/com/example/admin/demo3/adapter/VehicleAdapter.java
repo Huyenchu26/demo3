@@ -82,7 +82,10 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             ButterKnife.bind(this, itemView);
         }
 
+
+
         protected void bindData(int position) {
+            super.bindData(position);
             this.position = position;
             needUpdate = false;
             isBindData = true;

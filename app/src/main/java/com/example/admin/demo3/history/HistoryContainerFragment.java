@@ -27,6 +27,8 @@ import com.example.admin.demo3.util.DateUtils;
 import com.example.admin.demo3.util.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -238,5 +240,11 @@ public class HistoryContainerFragment extends Fragment {
                 LogUtil.e("onFailure History: " + t.getMessage());
             }
         });
+    }
+
+    // TODO: 6/5/2018 keep change date
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onMessageEvent(ChangeDateEvent event) {
+
     }
 }

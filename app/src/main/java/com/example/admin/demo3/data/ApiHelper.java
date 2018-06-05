@@ -17,7 +17,7 @@ public class ApiHelper {
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
-                    .baseUrl(AppConfigs.HOST)
+                    .baseUrl(AppConfigs.HOST_MQ)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
