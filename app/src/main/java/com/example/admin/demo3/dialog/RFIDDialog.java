@@ -3,10 +3,10 @@ package com.example.admin.demo3.dialog;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.admin.demo3.R;
+import com.example.admin.demo3.adapter.LineRfidAdapter;
 import com.example.admin.demo3.customview.MyAlertDialog;
 import com.example.admin.demo3.util.KeyboardUtils;
 
@@ -43,14 +43,8 @@ public class RFIDDialog extends MyAlertDialog {
                 return false;
             }
         });
-
-        setupList();
-    }
-
-    private void setupList() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(), android.R.layout.simple_list_item_1, rfid);
-        listRfid.setAdapter(adapter);
+        LineRfidAdapter rfidAdapter = new LineRfidAdapter(getContext(), rfid);
+        listRfid.setAdapter(rfidAdapter);
     }
 
     public void release() {
