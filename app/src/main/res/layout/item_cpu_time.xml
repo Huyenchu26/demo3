@@ -8,10 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txt"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
         style="@style/textNomal"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.4dp"
         android:background="@color/colorTextSecondary" />
     <include
         android:id="@+id/toolbarHeader"
@@ -19,4 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/viewEnd"
         layout="@layout/x_header_traffic" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorTextSecondary" />
 </LinearLayout>

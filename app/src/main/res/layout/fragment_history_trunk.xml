@@ -33,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="Time" />
+            android:text="Time line" />
 
         <TextView
             style="@style/textNomalItem"
@@ -47,14 +47,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="front" />
+            android:text="Front" />
 
         <TextView
             style="@style/textNomalItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="behind" />
+            android:text="Behind" />
 
     </LinearLayout>
 
