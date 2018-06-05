@@ -9,6 +9,8 @@
         style="@style/textNomalBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorHeader"
+        android:paddingTop="2dp"
         android:text="Time: 26/4/2018 - 28/4/2018" />
 
     <LinearLayout
@@ -16,7 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorHeader"
         android:gravity="bottom"
-        android:paddingBottom="4dp">
+        android:paddingTop="2dp">
 
         <TextView
             style="@style/textNomalItem"

@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="6dp"
     tools:context=".history.HistoryCPUFragment">
 
         <TextView
@@ -12,6 +11,8 @@
             style="@style/textNomalBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorHeader"
+            android:paddingTop="2dp"
             android:text="Time: 16/4/2018 - 19/4/2018" />
 
         <android.support.v7.widget.RecyclerView

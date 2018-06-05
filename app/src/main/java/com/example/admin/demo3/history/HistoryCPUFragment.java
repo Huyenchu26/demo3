@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -37,6 +38,7 @@ public class HistoryCPUFragment extends Fragment {
 
     String startDate, endDate;
     String imei;
+    Unbinder unbinder;
 
     public static HistoryCPUFragment newInstance(String imei, List<Vehicle> vehicleList) {
         return new HistoryCPUFragment().setDate(imei, vehicleList);
@@ -52,11 +54,10 @@ public class HistoryCPUFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_history_cpu, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         setupText();
-        setupList();
+        setupAdapter();
         return view;
     }
 
@@ -66,13 +67,20 @@ public class HistoryCPUFragment extends Fragment {
         txtCPUtime.setText("Time: " + startDate + " - " + endDate);
     }
 
-    private void setupList() {
+    private void setupAdapter() {
         adapter = new CPUtimeAdapter();
         List<Vehicle> vehicles = HistoryUtil.getListRestartCPU(vehicleList);
         adapter.addData(vehicles);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         listViewCPUtime.setLayoutManager(mLayoutManager);
         listViewCPUtime.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        unbinder = null;
     }
 
 }

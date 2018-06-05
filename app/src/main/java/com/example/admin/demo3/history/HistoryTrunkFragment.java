@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class HistoryTrunkFragment extends Fragment {
 
@@ -34,6 +35,7 @@ public class HistoryTrunkFragment extends Fragment {
 
     TrunkAdapter trunkAdapter;
     private View view;
+    Unbinder unbinder;
 
     public static HistoryTrunkFragment newInstance(String imei, List<Vehicle> vehicleList) {
         return new HistoryTrunkFragment().setDate(imei, vehicleList);
@@ -50,15 +52,15 @@ public class HistoryTrunkFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_history_trunk, container, false);
-        ButterKnife.bind(this, getActivity());
+        unbinder = ButterKnife.bind(this, view);
+        setupText();
+        setupAdapter();
         return view;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupText();
-        setupAdapter();
     }
 
     private void setupText() {
@@ -81,4 +83,10 @@ public class HistoryTrunkFragment extends Fragment {
         recyclerViewTrunk.setAdapter(trunkAdapter);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        unbinder = null;
+    }
 }
