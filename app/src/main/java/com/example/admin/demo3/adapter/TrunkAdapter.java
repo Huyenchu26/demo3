@@ -5,10 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.admin.demo3.R;
-import com.example.admin.demo3.model.Vehicle;
+import com.example.admin.demo3.customview.OnClickListener;
 import com.example.admin.demo3.util.HistoryUtil;
 
 import java.util.ArrayList;
@@ -18,6 +19,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TrunkAdapter extends RecyclerView.Adapter{
+
+    private static final int VIEW_TYPE_ITEM = 0;
+    private static final int VIEW_TYPE_LOADING_MORE = 1;
+    private static final int VIEW_TYPE_LOADING = 2;
+    private static final int VIEW_TYPE_LIST_ERROR = 3;
+    private static final int VIEW_TYPE_LIST_EMPTY = 4;
+    private static final int VIEW_TYPE_LIST_LOAD_MORE_ERROR = 5;
 
     protected List<HistoryUtil.ItemTrunk> itemTrunksList = new ArrayList<>();
     protected ItemListener itemListener;
@@ -86,7 +94,18 @@ public class TrunkAdapter extends RecyclerView.Adapter{
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemViewHolder(createView(parent, R.layout.item_trunk));
+        if (viewType == VIEW_TYPE_ITEM)
+            return new ItemViewHolder(createView(parent, R.layout.item_trunk));
+        else if (viewType == VIEW_TYPE_LOADING_MORE)
+            return new EmptyViewHolder(createView(parent, R.layout.x_item_loading_more_linear));
+        else if (viewType == VIEW_TYPE_LOADING)
+            return new EmptyViewHolder(createView(parent, R.layout.x_layout_list_loading));
+        else if (viewType == VIEW_TYPE_LIST_ERROR)
+            return new ErrorViewHolder(createView(parent, R.layout.x_layout_list_error));
+        else if (viewType == VIEW_TYPE_LIST_LOAD_MORE_ERROR)
+            return new ErrorViewHolder(createView(parent, R.layout.x_layout_list_load_more_error));
+        else
+            return new EmptyViewHolder(createView(parent, R.layout.x_layout_list_empty));
     }
 
     protected View createView(ViewGroup parent, int layoutResource) {
@@ -116,7 +135,7 @@ public class TrunkAdapter extends RecyclerView.Adapter{
 
     public interface ItemListener {
 
-        void onItemListener(Vehicle vehicle);
+        void onRetryClick();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -155,5 +174,33 @@ public class TrunkAdapter extends RecyclerView.Adapter{
             numberPictureBehind.setText(itemTrunk.getBackCam());
             trunkTime.setText(itemTrunk.getTime() + "");
         }
+    }
+
+    public class EmptyViewHolder extends RecyclerView.ViewHolder {
+
+        EmptyViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    public class ErrorViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.buttonRetry)
+        Button buttonRetry;
+
+        ErrorViewHolder(View itemView) {
+            super(itemView);
+            setupView();
+        }
+
+        private void setupView() {
+            ButterKnife.bind(this, itemView);
+            buttonRetry.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onDelayedClick(View v) {
+                    if (itemListener != null) itemListener.onRetryClick();
+                }
+            });
+        }
+
     }
 }

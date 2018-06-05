@@ -39,12 +39,12 @@ public class HistoryTrunkFragment extends Fragment {
         return new HistoryTrunkFragment().setDate(imei, vehicleList);
     }
 
-    public HistoryTrunkFragment setDate(String imei, List<Vehicle> vehicleList){
+    public HistoryTrunkFragment setDate(String imei, List<Vehicle> vehicleList) {
         this.vehicleList = vehicleList;
         this.imei = imei;
         return this;
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,10 +69,10 @@ public class HistoryTrunkFragment extends Fragment {
 
     private void setupAdapter() {
         trunkAdapter = new TrunkAdapter();
-        List<List<Vehicle>> lists = HistoryUtil.getTimeLine(vehicleList);
+        List<Vehicle> lists = HistoryUtil.getTimeLine(vehicleList);
         List<HistoryUtil.ItemTrunk> itemTrunks = new ArrayList<>();
-        for (int i = 0; i < lists.size(); i++){
-            itemTrunks.add(HistoryUtil.getItemTrunk(lists.get(i)));
+        for (int i = 0; i < lists.size() - 2; i += 2) {
+            itemTrunks.add(HistoryUtil.getItemTrunk(lists.get(i), lists.get(i + 1)));
         }
         trunkAdapter.addData(itemTrunks);
 

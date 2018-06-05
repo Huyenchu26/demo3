@@ -9,22 +9,18 @@ public class HistoryUtil {
 
     // TODO: 6/4/2018 trunk / camera
     // TODO: 6/4/2018 từ history chia ra từng đoạn mở két
-    public static List<List<Vehicle>> getTimeLine(List<Vehicle> vehicles) {
+    public static List<Vehicle> getTimeLine(List<Vehicle> vehicles) {
         List<Vehicle> vehiclesTrunk = new ArrayList<>();
-        List<List<Vehicle>> vehiclesResult = new ArrayList<>();
         if (vehicles != null) {
-            for (int i = 0; i < vehicles.size(); i++) {
-                if (vehicles.get(i).data.getTrunk().equals("1")) {
+            for (int i = 0; i < vehicles.size() - 1; i++) {
+                if (vehicles.get(i).data.getTrunk().equals("0") && vehicles.get(i + 1).data.getTrunk().equals("1")) {
+                    vehiclesTrunk.add(vehicles.get(i + 1));
+                } else if (vehicles.get(i).data.getTrunk().equals("1") && vehicles.get(i + 1).data.getTrunk().equals("0")){
                     vehiclesTrunk.add(vehicles.get(i));
-                } else {
-                    if (vehiclesTrunk.size() > 0) {
-                        vehiclesResult.add(vehiclesTrunk);
-                        vehiclesTrunk = new ArrayList<>();
-                    }
                 }
             }
         }
-        return vehiclesResult;
+        return vehiclesTrunk;
     }
 
     public static class ItemTrunk {
@@ -66,18 +62,18 @@ public class HistoryUtil {
     }
 
     // TODO: 6/4/2018 từ từng đoạn mở két lấy số camera
-    public static ItemTrunk getItemTrunk(List<Vehicle> vehicles) {
+    public static ItemTrunk getItemTrunk(Vehicle vehicle1, Vehicle vehicle2) {
         ItemTrunk itemTrunk = new ItemTrunk();
 
-        Vehicle.Data vehicleStart = vehicles.get(0).data;
-        Vehicle.Data vehicleEnd = vehicles.get(vehicles.size() - 1).data;
+        Vehicle.Data vehicleStart = vehicle1.data;
+        Vehicle.Data vehicleEnd = vehicle2.data;
 
         itemTrunk.setTimeLine(vehicleStart.getDateTime());
+
         int frontCam = Integer.parseInt(vehicleEnd.getFrontCam()) - Integer.parseInt(vehicleStart.getFrontCam());
         itemTrunk.setFrontCam(frontCam);
         int backCam = Integer.parseInt(vehicleEnd.getBackCam()) - Integer.parseInt(vehicleStart.getBackCam());
         itemTrunk.setBackCam(backCam);
-
         long time = (DateUtils.stringToDate(vehicleEnd.getDateTime()).getTime()
                 - DateUtils.stringToDate(vehicleStart.getDateTime()).getTime()) / 1000;
         itemTrunk.setTime(time);
