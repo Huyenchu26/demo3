@@ -30,6 +30,8 @@ import com.example.admin.demo3.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,11 +69,8 @@ public class MainActivity extends AppCompatActivity {
         init();
         setupAdapter();
         setupSearch();
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                setupConnect();
-            }
-        }, 500);
+
+        callAsynchronousTask();
     }
 
     private void setupSearch() {
@@ -187,8 +186,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
                         if(response.isSuccessful()) {
+                            vehicles.clear();
                             vehicles.addAll(response.body());
-                            adapter.addData(response.body());
+                            adapter.clearData();
+                            adapter.addData(vehicles);
                             LogUtil.e("isSuccessful: " + response.toString());
                         } else {
                             LogUtil.e("" + response.errorBody());
@@ -203,4 +204,28 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    public void callAsynchronousTask() {
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+//                            PerformBackgroundTask performBackgroundTask = new PerformBackgroundTask();
+//                            // PerformBackgroundTask this class is the class that extends AsynchTask
+//                            performBackgroundTask.execute();
+                            setupConnect();
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 0, 30000); //execute in every 50000 ms
+    }
+
 }
+
